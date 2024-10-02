@@ -1,0 +1,23 @@
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans:ital,wght@0,100..900;1,100..900&display=swap');
+
+table, .mat-mdc-paginator{
+    background-color: white;
+}
+th{
+    color: #9C9C9C;
+    font-weight: 500;
+    font-family: "Noto Sans", sans-serif;
+}
+thead, .mat-mdc-header-cell {
+    border-bottom: 2px solid #E4E4E4;
+}
+.mat-mdc-cell{
+    color: #19191C;
+    font-weight: 500;
+    font-size: 14px;
+   border: none;
+}
+tbody tr{
+ border-bottom: 1px solid #E4E4E4;
+}
+
