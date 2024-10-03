@@ -1,23 +1,24 @@
-@import url('https://fonts.googleapis.com/css2?family=Noto+Sans:ital,wght@0,100..900;1,100..900&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Noto+Sans:ital,wght@0,100..900;1,100..900&display=swap");
 
-table, .mat-mdc-paginator{
-    background-color: white;
+table,
+.mat-mdc-paginator {
+  background-color: white;
 }
-th{
-    color: #9C9C9C;
-    font-weight: 500;
-    font-family: "Noto Sans", sans-serif;
+th {
+  color: #19191c;
+  font-weight: 600;
+  font-family: "Noto Sans", sans-serif;
 }
-thead, .mat-mdc-header-cell {
-    border-bottom: 2px solid #E4E4E4;
+thead,
+.mat-mdc-header-cell {
+  border-bottom: 2px solid #e4e4e4;
 }
-.mat-mdc-cell{
-    color: #19191C;
-    font-weight: 500;
-    font-size: 14px;
-   border: none;
+.mat-mdc-cell {
+  color: #484b55;
+  font-weight: 400;
+  font-size: 16px;
+  border: none;
 }
-tbody tr{
- border-bottom: 1px solid #E4E4E4;
+tbody tr {
+  border-bottom: 1px solid #e4e4e4;
 }
-

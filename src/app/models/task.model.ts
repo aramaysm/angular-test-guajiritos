@@ -8,6 +8,6 @@ export interface Task {
     description: string,
     status: StatusTaskEnum,
     user_assigned: User,
-    
+    date: Date,
 
 }

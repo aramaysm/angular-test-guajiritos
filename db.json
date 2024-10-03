@@ -1,0 +1,37 @@
+{
+    "users": [],
+    "tasks":[
+      {
+        "id": 0,
+        "name": "Design strategy",
+        "description": "This is the descrption of design strategy",
+        "status": "Completed",
+        "user_assigned": 
+          {
+            "id": 0,
+            "name": "Pedro Luis",
+            "username": "pedri",
+            "status": "Activated",
+            "rol": "User"
+          },
+        "date": "2024-09-04"
+      },
+      {
+        "id": 1,
+        "name": "Implementation of UI",
+        "description": "This is the descrption of design strategy",
+        "status": "Pending",
+        "user_assigned": 
+          {
+            "id": 0,
+            "name": "Juan Luis",
+            "username": "juansi",
+            "status": "Activated",
+            "rol": "User"
+          },
+          "date": "2024-10-04"
+        
+      }
+     
+    ]
+  }

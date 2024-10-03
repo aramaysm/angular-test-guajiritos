@@ -4,7 +4,7 @@ import { UserRolEnum } from '../../utils/enums/userrol.enum';
 import { Credentials } from '../../models/credentials.model';
 import { Observable } from 'rxjs';
 import { AuthApiService } from '../api/auth-api.service';
-import jwt_decode from 'jwt-decode';
+import { jwtDecode } from "jwt-decode";
 
 
 @Injectable({
@@ -36,7 +36,7 @@ export class AuthService {
   }
 
   decodeToken(jwt: any): any {
-    const decoded:any = jwt_decode.jwtDecode(jwt);
+    const decoded:any = jwtDecode(jwt);
     const token: any = {};
     token.fullToken = jwt;
     token.company = decoded.company;

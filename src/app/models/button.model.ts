@@ -1,5 +1,7 @@
 export interface ButtonProps {
     label: string,
     classname: string,
-    onHandleClick: ()=> void
+    onHandleClick: ()=> void,
+    icon?: string,
+    color?: string,
 }

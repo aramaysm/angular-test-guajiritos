@@ -1,0 +1,146 @@
+<section id="dialog-task">
+  <div
+    style="height: 50px; margin-bottom: 18px"
+    class="flex just-betw items-center w-full border-b-2 bg-white"
+  >
+    <div class="flex just-betw items-center p-2 w-full">
+      <span id="title-dialog">{{
+        data?.name ? "Editar tarea" : "Insertar tarea"
+      }}</span>
+      <button class="bg-white border-none text-black" (click)="onClose()">
+        <svg
+          style="width: 15px"
+          class="text-black font-semibold dark:text-white"
+          aria-hidden="true"
+          xmlns="http://www.w3.org/2000/svg"
+          fill="none"
+          viewBox="0 0 14 14"
+        >
+          <path
+            stroke="currentColor"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="2"
+            d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6"
+          />
+        </svg>
+      </button>
+    </div>
+  </div>
+  <div style="height: 350px" class="flex col items-center w-full just-around">
+    <div class="flex row flex-wrap col-9">
+      <div class="flex col w-full mr-3 ">
+        <label id="label_task_name" for="task_name" class="mb-05 text-gray-900">
+          Tarea*
+        </label>
+        <input
+          type="text"
+          id="task_name"
+          [(ngModel)]="task_name"
+          placeholder="Nombre de la tarea"
+          required
+        />
+      </div>
+    </div>
+    <div class="flex row flex-wrap col-9">
+      <div class="flex col w-full mr-3 ">
+        <label
+          id="label_descrip"
+          for="productName"
+          class="mb-05 text-gray-900 dark:text-white"
+        >
+          Descripción*</label
+        >
+        <input
+          type="text"
+          id="desc"
+          [(ngModel)]="desc"
+          placeholder="Descripcion de la tarea"
+          required
+        />
+      </div>
+    </div>
+
+    @if (data?.name) {
+    <div class="flex row flex-wrap col-9">
+      <div class="flex col w-full mr-3 gap-1">
+        <label
+          id="label_email"
+          for="productName"
+          class=" mb-05  text-gray-900 dark:text-white"
+        >
+          Estado</label
+        >
+        <select
+          #selectStatus
+          class=""
+          (change)="onChangeSelectStatus($event)"
+        >
+          @for (item of status_options; track item) {
+          <option value="{{ item.id }}">{{ item.name }}</option>
+          }
+        </select>
+      </div>
+    </div>
+
+    }
+
+    <div class="flex row flex-wrap col-9">
+      <div class="flex col w-full ">
+        <label
+          id="label_birth"
+          for="productName"
+          class="mb-05 text-gray-900 dark:text-white w-full"
+        >
+          Fecha limite</label
+        >
+
+        <div class="flex row w-full ">
+            
+            <input matInput  onkeydown="return false" [matDatepicker]="picker">
+            <mat-datepicker-toggle matIconSuffix [for]="picker">                
+            </mat-datepicker-toggle>
+            <mat-datepicker #picker></mat-datepicker>
+        </div>
+      </div>
+    </div>
+
+    <div class="flex row flex-wrap col-9">
+      <div class="flex col w-full ">
+        <label
+          id="label_birth"
+          for="productName"
+          class=" mb-05 text-gray-900 "
+        >
+          Asignar a usuario</label
+        >
+
+        <div class="flex row w-full just-betw">
+          <select
+            #selectStatus
+            class="w-full "
+            (change)="onChangeSelectStatus($event)"
+          >
+            @for (item of status_options; track item) {
+            <option value="{{ item.id }}">{{ item.name }}</option>
+            }
+          </select>
+        </div>
+      </div>
+    </div>
+    <div style="height: 60px" class="w-full flex items-center just-around gap-3">
+      <button
+        class="button-Secondary"
+        (click)="onClose()"
+      >
+        Cancel
+      </button>
+      <button
+        class="button-Primary"
+        (click)="onSave()"
+      >
+        Save
+      </button>
+    </div>
+  </div>
+</section>

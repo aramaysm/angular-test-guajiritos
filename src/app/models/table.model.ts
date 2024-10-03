@@ -6,5 +6,6 @@ export interface TableColumnProps {
     label: string,
     type: TypeColumnEnum,
     actions?: ButtonProps[],
-    onHandleClick?: ()=> void
+    onHandleClick?: ()=> void,
+    
 }

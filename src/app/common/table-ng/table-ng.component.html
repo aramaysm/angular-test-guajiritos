@@ -1,43 +1,77 @@
-<table mat-table [dataSource]="dataSource">
+<table mat-table [dataSource]="dataSource" class="mt-3 w-full">
+  @for (colItem of displayedColumns; track colItem) {
 
-    @for (colItem of displayedColumns; track colItem) {
-
-        <ng-container [matColumnDef]="colItem.id">
-            <th mat-header-cell *matHeaderCellDef> {{colItem.label}} </th>
-            @if(colItem.id === "actions"){
-              <td mat-cell *matCellDef="let dataSource" class="row gap-1">
-                @for (itemBut of colItem.actions; track itemBut) {
-                  <button (click)="itemBut.onHandleClick()" 
-                  [ngClass]="itemBut.classname"
-                 >
-                    {{itemBut.label}}
-                  </button>
-                } 
-               
-                
-               </td>
-            }
-            @else if (colItem.type === "Chip") {
-              <td mat-cell *matCellDef="let dataSource">
-                <div class="rounded-10 just-center items-center" [ngClass]="dataSource[colItem.id] === 'Completed' ? 'Chip-success' : dataSource[colItem.id] === 'Pending' ? 'Chip-warning' : 'Chip-info' ">
-                  <p> {{dataSource[colItem.id]}}</p>
-                </div>
-                
-                 </td>
-            }
-            @else {
-              <td mat-cell *matCellDef="let dataSource"> {{ dataSource[colItem.id].id !== undefined ? dataSource[colItem.id].name  : dataSource[colItem.id] }} </td>
-            }
-           
-          </ng-container>
-
+  <ng-container [matColumnDef]="colItem.id">
+    <th mat-header-cell *matHeaderCellDef>{{ colItem.label }}</th>
+    @if(colItem.id === "actions"){
+    <td mat-cell *matCellDef="let dataSource" class="row gap-1">
+      @for (itemBut of colItem.actions; track itemBut) {
+      <button (click)="itemBut.onHandleClick()" [ngClass]="itemBut.classname">
+        @if(itemBut.label === "Editar"){
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          width="16"
+          height="16"
+          viewBox="0 0 16 16"
+          fill="none"
+        >
+          <path
+            d="M12.1481 3.14807L11 2L2 11V14H5L14 5L12.8561 3.85607L4.854 11.854C4.756 11.951 4.628 12 4.5 12C4.372 12 4.244 11.951 4.146 11.854C3.951 11.658 3.951 11.342 4.146 11.146L12.1481 3.14807ZM11 1C11.256 1 11.512 1.098 11.707 1.293L14.707 4.293C15.098 4.683 15.098 5.317 14.707 5.707L5.707 14.707C5.52 14.895 5.265 15 5 15H2C1.448 15 1 14.552 1 14V11C1 10.735 1.105 10.48 1.293 10.293L10.293 1.293C10.488 1.098 10.744 1 11 1ZM5 14H2V11L5 14Z"
+            fill="#0071C2"
+          />
+        </svg>
+        } @else {
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          width="16"
+          height="16"
+          viewBox="0 0 16 16"
+          fill="none"
+        >
+          <path
+            d="M11 3H16V4H0V3H5V1C5 0.448 5.448 0 6 0H10C10.552 0 11 0.448 11 1V3ZM3.944 11H7V12H4.1L4.492 14.519C4.534 14.788 4.746 14.977 4.985 14.977H11.015C11.254 14.977 11.466 14.788 11.508 14.519L13.006 4.943H14L12.496 14.673C12.38 15.42 11.756 15.977 11.015 15.977H4.985C4.244 15.977 3.62 15.42 3.504 14.673L1.993 4.943H9V5.95H3.157L3.476 8H8V9H3.632L3.944 11ZM6 3H10V1H6V3Z"
+            fill="#BD271E"
+          />
+        </svg>
+        }
+      </button>
+      }
+    </td>
+    } @else if (colItem.type === "Chip") {
+    <td mat-cell *matCellDef="let dataSource">
+      <div
+        class="rounded-10 just-center items-center"
+        [ngClass]="
+          dataSource[colItem.id] === 'Completed'
+            ? 'Chip-success'
+            : dataSource[colItem.id] === 'Pending'
+            ? 'Chip-warning'
+            : 'Chip-info'
+        "
+      >
+        <p>{{ dataSource[colItem.id] }}</p>
+      </div>
+    </td>
+    } @else {
+    <td mat-cell *matCellDef="let dataSource">
+      {{
+        dataSource[colItem.id].id !== undefined
+          ? dataSource[colItem.id].name
+          : dataSource[colItem.id]
+      }}
+    </td>
     }
-  
-    <tr mat-header-row *matHeaderRowDef="columnsToRender"></tr>
-    <tr mat-row *matRowDef="let row; columns: columnsToRender;"></tr>
-  </table>
+  </ng-container>
 
-  <mat-paginator [pageSizeOptions]="[5, 10, 20]"
-                 showFirstLastButtons
-                 aria-label="Select page of periodic elements">
-  </mat-paginator>
+  }
+
+  <tr mat-header-row *matHeaderRowDef="columnsToRender"></tr>
+  <tr mat-row *matRowDef="let row; columns: columnsToRender"></tr>
+</table>
+
+<mat-paginator
+  [pageSizeOptions]="[5, 10, 20]"
+  showFirstLastButtons
+  aria-label="Select page of periodic elements"
+>
+</mat-paginator>
