@@ -7,7 +7,7 @@ export interface Task {
     name: string,
     description: string,
     status: StatusTaskEnum,
-    user_assigned: User,
+    user_assigned: number,
     date: Date,
 
 }

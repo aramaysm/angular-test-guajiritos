@@ -1,32 +1,13 @@
-<div class="row h-vfull">
-  <app-sidebar></app-sidebar>
+<app-layout [dataSource]="dataSource"
+[dialogToOpen]="taskDialog"
+[displayedColumns]="displayedColumns"
+(onSave)="onSaveTask($event)"
+[title]="'Listado de tareas'"
+[searchPlaceholder]="'Busque por id, tarea o descripcion'"
+[status_options]="status_options"
+(onSelectStatus)="onChangeSelectStatus($event)"
+(onChangeSearch)="onSearch($event)"
+(selectUser)="onSelectTask($event)"
+>
 
-  <div class="col-9 col-sm-8 ms-auto">
-    <app-header></app-header>
-    <div class="row w-full just-betw items-center">
-      <div class="col-3">
-        <input
-          class="w-full"
-          type="text"
-          placeholder="Busque por nombre, descripcion o id"
-        />
-      </div>
-      <div class="col-4">
-        <select #selectStatus class=""  (change)="onChangeSelectStatus($event)">
-          @for (item of status_options; track item) {
-          <option value="{{ item.id }}">{{ item.name }}</option>
-          }
-        </select>
-      </div>
-      <div class="col-2">
-        <button class="button-Primary" (click)="onHandleNew()">Nueva</button>
-      </div>
-    </div>
-
-    <app-table-ng
-      [displayedColumns]="displayedColumns"
-      [dataSource]="dataSource"
-    >
-    </app-table-ng>
-  </div>
-</div>
+</app-layout>

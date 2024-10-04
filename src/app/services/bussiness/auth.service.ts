@@ -11,15 +11,12 @@ import { jwtDecode } from "jwt-decode";
   providedIn: 'root'
 })
 export class AuthService {
-
   
   token:  any;
   credentials: Credentials  | any;
   initialLogin:  any;
   private dataUser? : Credentials;
   adminRoles = [UserRolEnum.ADMIN, UserRolEnum.USER];
-
-
   
   constructor(private authAPI: AuthApiService) {
     

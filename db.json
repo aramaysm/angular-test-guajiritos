@@ -1,37 +1,40 @@
 {
-    "users": [],
-    "tasks":[
-      {
-        "id": 0,
-        "name": "Design strategy",
-        "description": "This is the descrption of design strategy",
-        "status": "Completed",
-        "user_assigned": 
-          {
-            "id": 0,
-            "name": "Pedro Luis",
-            "username": "pedri",
-            "status": "Activated",
-            "rol": "User"
-          },
-        "date": "2024-09-04"
-      },
-      {
-        "id": 1,
-        "name": "Implementation of UI",
-        "description": "This is the descrption of design strategy",
-        "status": "Pending",
-        "user_assigned": 
-          {
-            "id": 0,
-            "name": "Juan Luis",
-            "username": "juansi",
-            "status": "Activated",
-            "rol": "User"
-          },
-          "date": "2024-10-04"
-        
-      }
-     
-    ]
-  }
+  "users": [
+    {
+      "email": "aramaysm@gmail.com",
+      "password": "",
+      "firstname": "Aramays",
+      "lastname": "Morales",
+      "age": 18,
+      "status": "Activo",
+      "id": 1
+    },
+    {
+      "email": "pepe@ee.mk",
+      "password": "",
+      "firstname": "Pepe",
+      "lastname": "Duran",
+      "age": 18,
+      "status": "Activo",
+      "id": 2
+    }
+  ],
+  "tasks": [
+    {
+      "id": 0,
+      "name": "Design strategy",
+      "description": "This is the descrption of design strategy",
+      "status": "Completada",
+      "user_assigned": 1,
+      "date": "2024-09-04"
+    },
+    {
+      "name": "eeeeee",
+      "description": "eeeee",
+      "status": "Pendiente",
+      "user_assigned": 2,
+      "date": "2024-10-04",
+      "id": 1
+    }
+  ]
+}

@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
+import { AuthService } from '../../services/bussiness/auth.service';
 
 @Component({
   selector: 'app-header',
@@ -8,5 +9,12 @@ import { Component } from '@angular/core';
   styleUrl: './header.component.css'
 })
 export class HeaderComponent {
+ 
+  @Input() title: string = "";
+
+  constructor(private authService: AuthService){
+
+  }
+
 
 }

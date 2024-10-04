@@ -3,8 +3,12 @@ import { UserRolEnum } from "../utils/enums/userrol.enum";
 
 export interface User{
     id: number,
-    name: string,
-    username:string,
+    email: string,
+    firstname:string,
+    lastname: string,
+    age: number,
+    password: string,
     status: StatusUserEnum,
     rol: UserRolEnum
+   
 }

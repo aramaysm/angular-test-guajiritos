@@ -1,14 +1,13 @@
-<table mat-table [dataSource]="dataSource" class="mt-3 w-full">
+<table mat-table [dataSource]="dataSource" class="mt-3 ">
   @for (colItem of displayedColumns; track colItem) {
-
   <ng-container [matColumnDef]="colItem.id">
     <th mat-header-cell *matHeaderCellDef>{{ colItem.label }}</th>
     @if(colItem.id === "actions"){
     <td mat-cell *matCellDef="let dataSource" class="row gap-1">
       @for (itemBut of colItem.actions; track itemBut) {
-      <button (click)="itemBut.onHandleClick()" [ngClass]="itemBut.classname">
-        @if(itemBut.label === "Editar"){
-        <svg
+      <button  [ngClass]="itemBut.classname">
+        @if(itemBut.label === "Editar" ){
+        <svg (click)="onSelectRow(dataSource, 'Edit')"
           xmlns="http://www.w3.org/2000/svg"
           width="16"
           height="16"
@@ -21,7 +20,7 @@
           />
         </svg>
         } @else {
-        <svg
+        <svg (click)="onSelectRow(dataSource, 'Delete')"
           xmlns="http://www.w3.org/2000/svg"
           width="16"
           height="16"
@@ -42,9 +41,9 @@
       <div
         class="rounded-10 just-center items-center"
         [ngClass]="
-          dataSource[colItem.id] === 'Completed'
+          dataSource[colItem.id] === 'Completada' || dataSource[colItem.id] === 'Activo'
             ? 'Chip-success'
-            : dataSource[colItem.id] === 'Pending'
+            : dataSource[colItem.id] === 'Pendiente' || dataSource[colItem.id] === 'Inactivo'
             ? 'Chip-warning'
             : 'Chip-info'
         "

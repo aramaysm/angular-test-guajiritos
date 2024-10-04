@@ -14,7 +14,7 @@ export class TaskApiService {
   path = '/tasks';
 
   constructor(
-    private _http: HttpClient,
+    private http: HttpClient,
     private processHttpMsgService: ProcessHTTPMSgService
   ) {
     this.headers = new HttpHeaders({
@@ -23,26 +23,27 @@ export class TaskApiService {
   }
 
   getAllTaskAPI(): Observable<Task[]> {
-    return this._http
+    return this.http
       .get<Task[]>(serverURL + this.path)
       .pipe(catchError(this.processHttpMsgService.handleError));
   }
 
   createTaskAPI(task: Task): Observable<Task> {
-    return this._http
-      .post<any>(serverURL + this.path, task)
+    console.log("Task service", task)
+    return this.http
+      .post<Task>(serverURL + this.path, task)
       .pipe(catchError(this.processHttpMsgService.handleError));
   }
 
   editTaskAPI(task: Task): Observable<Task> {
-    return this._http
-      .patch<any>(serverURL + this.path, task)
+    return this.http
+      .patch<Task>(serverURL + this.path+'/'+task.id, task)
       .pipe(catchError(this.processHttpMsgService.handleError));
   }
 
-  changeStateTaskAPI(newState: StatusTaskEnum): Observable<Task> {
-    return this._http
-      .patch<any>(serverURL + this.path, {
+  changeStateTaskAPI(newState: StatusTaskEnum, id: number): Observable<Task> {
+    return this.http
+      .patch<Task>(serverURL + this.path+'/'+id, {
         status: newState
       })
       .pipe(catchError(this.processHttpMsgService.handleError));

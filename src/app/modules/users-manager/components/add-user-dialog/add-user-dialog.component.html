@@ -1,1 +1,195 @@
-<app-table-ng></app-table-ng>
+<section id="dialog-user">
+    <div
+      style="height: 50px; margin-bottom: 18px"
+      class="flex just-betw items-center w-full border-b-2 bg-white"
+    >
+      <div class="flex just-betw items-center p-2 w-full">
+        <span id="title-dialog">{{
+          data?.params?.firstname ? "Editar usuario" : "Insertar usuario"
+        }}</span>
+        <button class="bg-white border-none text-black" style="cursor: pointer;" (click)="onClose()">
+          <svg
+            style="width: 15px"
+            class="text-black font-semibold dark:text-white"
+            aria-hidden="true"
+            xmlns="http://www.w3.org/2000/svg"
+            fill="none"
+            viewBox="0 0 14 14"
+          >
+            <path
+              stroke="currentColor"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6"
+            />
+          </svg>
+        </button>
+      </div>
+    </div>
+    <form [formGroup]="userForm" (ngSubmit)="onSave()">
+      <div style="height: 380px" class="flex col flex-wrap items-center w-full just-around">
+        <div class="flex row flex-wrap col-9">
+          <div class="flex col w-full mr-3 ">
+            <label id="label_firstname" for="firstname" class="mb-05 text-gray-900">
+              Nombre*
+            </label>
+            <input
+            [ngClass]="firstname?.invalid && ( firstname?.touched) ? 'errorinput' :'' "
+              type="text"
+              id="firstname"
+              [disabled]="data?.params?.status === 'Unavailable'"
+              formControlName="firstname"
+              placeholder="Nombres"
+              
+            />
+            <label *ngIf="firstname?.invalid && ( firstname?.touched)"
+            class="errorinput">
+             El nombre debe tener mas de 5 caracteres
+          </label>
+          </div>
+        </div>
+        <div class="flex row flex-wrap col-9">
+          <div class="flex col w-full mr-3 ">
+            <label
+              id="label_lastname"
+              for="lastname"
+              class="text-gray-900 "
+            >
+              Apellidos</label
+            >
+            <input
+            [ngClass]="lastname?.invalid && ( lastname?.touched) ? 'errorinput' :'' "
+              type="text"
+              id="lastname"
+              [disabled]="data?.params?.status === 'Unavailable'"
+              formControlName="lastname"
+              placeholder="Apellidos"
+              
+            />
+            <label *ngIf="firstname?.invalid && ( firstname?.touched)"
+            class="errorinput">
+             Los apellidos deben tener mas de 2 caracteres
+          </label>
+          </div>
+        </div>
+        <div class="flex col-9 row flex-wrap w-full just-betw gap-1">
+          <div class="flex col-6 mr-3 ">
+            <label id="label_email" for="email" class="text-gray-900">
+              Correo*
+            </label>
+            <input
+            [ngClass]="email?.invalid && ( email?.touched) ? 'errorinput' :'' "
+              type="text"
+              id="email"
+              [disabled]="data?.params?.status === 'Unavailable'"
+              formControlName="email"
+              placeholder="Correo"
+              
+            />
+            <label *ngIf="email?.invalid && ( email?.touched)"
+            class="errorinput">
+             El correo es requerido y en un formato valido
+          </label>
+          </div>
+          <div class="flex col-3 mr-3 ">
+            <label id="label_age" for="age" class="text-gray-900">
+              Edad
+            </label>
+            <input
+            [ngClass]="age?.invalid && ( age?.touched) ? 'errorinput' :'' "
+              type="number"
+              id="age"
+              [disabled]="data?.params?.status === 'Unavailable'"
+              formControlName="age"
+              placeholder="Edad"
+              
+            />
+           
+          </div>
+        </div>
+      
+        @if (data?.params?.firstname ) {
+        <div class="flex row flex-wrap col-9">
+          <div class="flex col w-full mr-3 gap-1">
+            <label
+              id="label_state"
+              for="state_select"
+              class="text-gray-900 "
+            >
+              Estado</label
+            >
+            <select
+              id="state_select"
+              #selectStatus             
+              (change)="onChangeSelectStatus($event)"
+            >
+            
+              @for (item of status_options; track item) {
+              <option [defaultSelected]="item.id === status" value="{{ item.id }}">{{ item.name }}</option>
+              }
+            </select>
+          </div>
+        </div>
+    
+        }
+    
+        <div class="flex col-9 row flex-wrap w-full just-betw gap-1">
+          <div class="flex col-4">
+            <label id="label_password" for="password" class="text-gray-900">
+              Contraseña
+            </label>
+            <input
+            [ngClass]="password?.invalid && ( password?.touched) ? 'errorinput' :'' "
+              type="password"
+              id="password"
+              [disabled]="data?.params?.status === 'Unavailable'"
+              formControlName="password"
+              placeholder="Contraseña"
+              
+            />
+            <label *ngIf="password?.invalid && ( password?.touched)"
+            class="errorinput">
+             La Contraseña debe tener al menos 4 caracteres
+          </label>
+          </div>
+          <div class="flex col-5 mr-3 ">
+            <label id="label_passwordc" for="passwordc" class="text-gray-900">
+              Confirmar contraseña
+            </label>
+            <input
+            [ngClass]="password?.invalid && ( password?.touched) ? 'errorinput' :'' "
+              type="password"
+              id="passwordc"
+              [disabled]="data?.params?.status === 'Unavailable'"
+              formControlName="password_confirm"
+              placeholder="Contraseña"
+              
+            />
+            <label *ngIf="password_confirm?.invalid && ( password_confirm?.touched)"
+            class="errorinput">
+             La Contraseña debe tener al menos 4 caracteres
+          </label>
+          </div>
+        </div>
+
+        <div style="height: 60px" class="w-full flex items-center just-around gap-3">
+          <button
+            class="button-Secondary"
+            (click)="onClose()"
+          >
+            Cancelar
+          </button>
+          <button
+            class="button-Primary"
+           
+            type="submit"
+          >
+            Guardar
+          </button>
+        </div>
+      </div>
+    </form>
+   
+  </section>
+  

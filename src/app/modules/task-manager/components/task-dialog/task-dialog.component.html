@@ -5,9 +5,9 @@
   >
     <div class="flex just-betw items-center p-2 w-full">
       <span id="title-dialog">{{
-        data?.name ? "Editar tarea" : "Insertar tarea"
+        data?.params?.name ? "Editar tarea" : "Insertar tarea"
       }}</span>
-      <button class="bg-white border-none text-black" (click)="onClose()">
+      <button class="bg-white border-none text-black" style="cursor: pointer;" (click)="onClose()">
         <svg
           style="width: 15px"
           class="text-black font-semibold dark:text-white"
@@ -27,98 +27,61 @@
       </button>
     </div>
   </div>
-  <div style="height: 350px" class="flex col items-center w-full just-around">
-    <div class="flex row flex-wrap col-9">
-      <div class="flex col w-full mr-3 ">
-        <label id="label_task_name" for="task_name" class="mb-05 text-gray-900">
-          Tarea*
-        </label>
-        <input
-          type="text"
-          id="task_name"
-          [(ngModel)]="task_name"
-          placeholder="Nombre de la tarea"
-          required
-        />
-      </div>
-    </div>
-    <div class="flex row flex-wrap col-9">
-      <div class="flex col w-full mr-3 ">
-        <label
-          id="label_descrip"
-          for="productName"
-          class="mb-05 text-gray-900 dark:text-white"
-        >
-          Descripción*</label
-        >
-        <input
-          type="text"
-          id="desc"
-          [(ngModel)]="desc"
-          placeholder="Descripcion de la tarea"
-          required
-        />
-      </div>
-    </div>
-
-    @if (data?.name) {
-    <div class="flex row flex-wrap col-9">
-      <div class="flex col w-full mr-3 gap-1">
-        <label
-          id="label_email"
-          for="productName"
-          class=" mb-05  text-gray-900 dark:text-white"
-        >
-          Estado</label
-        >
-        <select
-          #selectStatus
-          class=""
-          (change)="onChangeSelectStatus($event)"
-        >
-          @for (item of status_options; track item) {
-          <option value="{{ item.id }}">{{ item.name }}</option>
-          }
-        </select>
-      </div>
-    </div>
-
-    }
-
-    <div class="flex row flex-wrap col-9">
-      <div class="flex col w-full ">
-        <label
-          id="label_birth"
-          for="productName"
-          class="mb-05 text-gray-900 dark:text-white w-full"
-        >
-          Fecha limite</label
-        >
-
-        <div class="flex row w-full ">
+  <form [formGroup]="taskForm" (ngSubmit)="onSave()">
+    <div style="height: 380px" class="flex col items-center w-full just-around">
+      <div class="flex row flex-wrap col-9">
+        <div class="flex col w-full mr-3 ">
+          <label id="label_task_name" for="task_name" class="mb-05 text-gray-900">
+            Tarea*
+          </label>
+          <input
+          [ngClass]="task_name?.invalid && ( task_name?.touched) ? 'errorinput' :'' "
+            type="text"
+            id="task_name"
+            [disabled]="data?.params?.status === 'Completed'"
+            formControlName="task_name"
+            placeholder="Nombre de la tarea"
             
-            <input matInput  onkeydown="return false" [matDatepicker]="picker">
-            <mat-datepicker-toggle matIconSuffix [for]="picker">                
-            </mat-datepicker-toggle>
-            <mat-datepicker #picker></mat-datepicker>
+          />
+          <label *ngIf="task_name?.invalid && ( task_name?.touched)"
+          class="errorinput">
+           El nombre debe tener mas de 5 caracteres
+        </label>
         </div>
       </div>
-    </div>
-
-    <div class="flex row flex-wrap col-9">
-      <div class="flex col w-full ">
-        <label
-          id="label_birth"
-          for="productName"
-          class=" mb-05 text-gray-900 "
-        >
-          Asignar a usuario</label
-        >
-
-        <div class="flex row w-full just-betw">
+      <div class="flex row flex-wrap col-9">
+        <div class="flex col w-full mr-3 ">
+          <label
+            id="label_descrip"
+            for="productName"
+            class="mb-05 text-gray-900 dark:text-white"
+          >
+            Descripción</label
+          >
+          <textarea
+           rows="3"
+            id="desc"
+            [disabled]="data?.params?.status === 'Completed'"
+            formControlName="desc"            
+            placeholder="Descripcion de la tarea"
+            required
+          ></textarea>
+        </div>
+      </div>
+  
+      @if (data?.params?.name && data?.params?.status !== "Completed") {
+      <div class="flex row flex-wrap col-9">
+        <div class="flex col w-full mr-3 gap-1">
+          <label
+            id="label_email"
+            for="productName"
+            class="text-gray-900 "
+          >
+            Estado</label
+          >
           <select
             #selectStatus
-            class="w-full "
+            [disabled]="data?.params?.status === 'Completed'"
             (change)="onChangeSelectStatus($event)"
           >
             @for (item of status_options; track item) {
@@ -127,20 +90,74 @@
           </select>
         </div>
       </div>
+  
+      }
+  
+      <div class="flex row flex-wrap col-9">
+        <div class="flex col w-full ">
+          <label
+            id="label_birth"
+            for="productName"
+            class="text-gray-900  w-full"
+          >
+            Fecha limite</label
+          >
+          <label *ngIf="date?.invalid && ( date?.touched)"
+          class="errorinput">
+           La fecha limite es requerida
+        </label>
+          <div class="flex row w-full ">
+              
+              <input  [disabled]="data?.params?.status === 'Completed'"
+               matInput  onkeydown="return false" formControlName="date"
+                [matDatepicker]="picker">
+              <mat-datepicker-toggle matIconSuffix [for]="picker">                
+              </mat-datepicker-toggle>
+              <mat-datepicker #picker></mat-datepicker>
+          </div>
+        </div>
+      </div>
+  
+      <div class="flex row flex-wrap col-9">
+        <div class="flex col w-full ">
+          <label
+            id="label_birth"
+            for="productName"
+            class=" mb-05 text-gray-900 "
+          >
+            Asignar a usuario</label
+          >
+  
+          <div class="flex row w-full just-betw">
+            <select
+              #selectStatus
+              [disabled]="data?.params?.status === 'Completed'"
+              class="w-full "
+              (change)="onChangeSelectStatus($event)"
+            >
+              @for (item of userService.users_options; track item) {
+              <option [defaultSelected]="item.id === user_assigned" value="{{ item.id }}">{{ item.name }}</option>
+              }
+            </select>
+          </div>
+        </div>
+      </div>
+      <div style="height: 60px" class="w-full flex items-center just-around gap-3">
+        <button
+          class="button-Secondary"
+          (click)="onClose()"
+        >
+          Cancelar
+        </button>
+        <button
+          class="button-Primary"
+         
+          type="submit"
+        >
+          Guardar
+        </button>
+      </div>
     </div>
-    <div style="height: 60px" class="w-full flex items-center just-around gap-3">
-      <button
-        class="button-Secondary"
-        (click)="onClose()"
-      >
-        Cancel
-      </button>
-      <button
-        class="button-Primary"
-        (click)="onSave()"
-      >
-        Save
-      </button>
-    </div>
-  </div>
+  </form>
+ 
 </section>
