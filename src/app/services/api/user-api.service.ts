@@ -30,7 +30,7 @@ export class UserApiService {
   }
 
   createUserAPI(user: User): Observable<User> {
-    console.log("User service", user);
+    
     
     return this.http
       .post<User>(serverURL + this.path, user)
@@ -38,7 +38,7 @@ export class UserApiService {
   }
 
   editUserAPI(user: User): Observable<User> {
-    console.log("Update user-api", user);
+    
     return this.http
       .patch<User>(serverURL + this.path+'/'+user.id, user)
       .pipe(catchError(this.processHttpMsgService.handleError));

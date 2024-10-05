@@ -27,7 +27,7 @@ export class LayoutComponent {
   @Input() status_options:any[] = [];
   @Input() displayedColumns: TableColumnProps[] = [];
   @Output() onSave = new EventEmitter<any>();
-  @Output() selectUser = new EventEmitter<any>(); 
+  @Output() selectData = new EventEmitter<any>(); 
   @Output() onSelectStatus = new EventEmitter<any>();
   @Output() onChangeSearch = new EventEmitter<any>();
   @Input() dialogToOpen: any;
@@ -72,7 +72,9 @@ export class LayoutComponent {
 
     switch (operation) {
       case OperatRowEnum.EDIT:
-        this.selectUser.emit({rowSelected,operation:"Edit"});
+        
+        this.selectData.emit({rowSelected,operation:"Edit"});
+
         this.dialog
           .open(this.dialogToOpen, {
             width: '420px',

@@ -140,7 +140,7 @@
               Contraseña
             </label>
             <input
-            [ngClass]="password?.invalid && ( password?.touched) ? 'errorinput' :'' "
+            [ngClass]="(password?.invalid && ( password?.touched)) || ((password?.touched && password_confirm?.touched) &&  (password_confirm?.value !== password?.value)) ? 'errorinput' :'' "
               type="password"
               id="password"
               [disabled]="data?.params?.status === 'Unavailable'"
@@ -158,7 +158,7 @@
               Confirmar contraseña
             </label>
             <input
-            [ngClass]="password?.invalid && ( password?.touched) ? 'errorinput' :'' "
+            [ngClass]="(password?.touched && password_confirm?.touched) &&  (password_confirm?.value !== password?.value) ? 'errorinput' :'' "
               type="password"
               id="passwordc"
               [disabled]="data?.params?.status === 'Unavailable'"
@@ -166,9 +166,12 @@
               placeholder="Contraseña"
               
             />
-            <label *ngIf="password_confirm?.invalid && ( password_confirm?.touched)"
+            
+          </div>
+          <div  class="flex col-5 mr-3 ">
+            <label *ngIf="(password?.touched && password_confirm?.touched) &&  (password_confirm?.value !== password?.value)"
             class="errorinput">
-             La Contraseña debe tener al menos 4 caracteres
+             Las contraseñas deben coincidir
           </label>
           </div>
         </div>
@@ -181,9 +184,11 @@
             Cancelar
           </button>
           <button
-            class="button-Primary"
-           
+            class="button-Primary"           
             type="submit"
+            [disabled]="firstname?.invalid || lastname?.invalid || email?.invalid 
+              ||
+             (!data?.params?.firstname && (password_confirm?.invalid || password?.invalid))  "
           >
             Guardar
           </button>

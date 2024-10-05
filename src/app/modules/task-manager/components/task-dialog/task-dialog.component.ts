@@ -14,14 +14,23 @@ import { Subscription } from 'rxjs';
 })
 export class TaskDialogComponent implements OnInit {
 
+  constructor(
+    private dialogRef: MatDialogRef<any>,
+    @Inject(MAT_DIALOG_DATA) public data: any,
+    public userService: UserService,
+  ) {
+    
+  }
+
   taskForm = new FormGroup({
     task_name : new FormControl('',[
       Validators.required,
       Validators.minLength(5),
     ]),
     desc : new FormControl('',),
-    date: new FormControl(new Date(),
-      Validators.required
+    date: new FormControl({value: new Date(), disabled: false},
+      Validators.required,
+      
     )
   });
   
@@ -40,17 +49,11 @@ export class TaskDialogComponent implements OnInit {
       name: StatusTaskEnum.PENDING,
     },
   ];
-
-  user_assigned: number = 0;
+  
+  user_assigned: number = -1;
   subscription: Subscription[] = new Array<Subscription>();
-
-  constructor(
-    private dialogRef: MatDialogRef<any>,
-    @Inject(MAT_DIALOG_DATA) public data: any,
-    public userService: UserService,
-  ) {
-    
-  }
+  user_error: boolean = false;
+  
 
   get task_name() {
     return this.taskForm.get('task_name');
@@ -70,13 +73,22 @@ export class TaskDialogComponent implements OnInit {
         desc : this.data.params.description,
         date: this.data.params.date,        
       });
-        
-     this.status = this.data.params.status;    
-     this.user_assigned = this.data.params.user_assigned 
-    }
 
+     if(this.data?.params?.status === 'Completada' ) {
+      this.taskForm.get('task_name')?.disable;
+      this.taskForm.get('desc')?.disable;
+      this.taskForm.get('date')?.disable;
+     }
+      
+
+     this.status = this.data.params.status;    
+     this.user_assigned = this.userService.getUserByName(this.data.params.user_assigned).id 
+    }
+    
     if(this.userService.usersList && this.userService.usersList.length === 0 )
       this.userService.getAllUser();
+
+
   }
 
   onClose() {  
@@ -85,18 +97,38 @@ export class TaskDialogComponent implements OnInit {
 
   onChangeSelectStatus($event: any) {
     this.status = $event.target.value;
+    
   }
 
   onSave(){
-    const data = {
-      id: this.data ? this.data.params?.id : null,
-      name: this.taskForm.value.task_name,
-      description: this.taskForm.value.desc,
-      status: this.status,
-      user_assigned: this.user_assigned,
-      date: this.taskForm.value.date?.toISOString().substring(0,10)
+    
+    if(this.user_assigned === -1){
+      this.user_error = true;
     }
-    this.dialogRef.close(data);
+    else{      
+      const data = {
+        id: this.data ? this.data.params?.id : null,
+        name: this.taskForm.value.task_name,
+        description: this.taskForm.value.desc,
+        status: this.status,
+        user_assigned: this.user_assigned,
+        date: this.data.params?.id ? this.taskForm.value.date : this.taskForm.value.date?.toISOString().substring(0,10)
+      }
+      this.dialogRef.close(data);
+    }
+    
+  }
+
+
+  onChangeUser($event: any){
+    this.user_assigned = Number($event.target.value) ;
+    
+    if(this.user_assigned === -1){
+      this.user_error = true;
+    }
+    else{
+      this.user_error = false;
+    }
   }
 
 }

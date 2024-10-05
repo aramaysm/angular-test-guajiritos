@@ -12,11 +12,47 @@
     {
       "email": "pepe@ee.mk",
       "password": "",
-      "firstname": "Pepe",
+      "firstname": "Jose Antonio",
       "lastname": "Duran",
+      "age": 19,
+      "status": "Inactivo",
+      "id": 2
+    },
+    {
+      "email": "felipe@mdm.cu",
+      "password": "$2a$10$EWNlISvP//PHUcfCN.oXOOlLRYVHjoSgnLLhs4sRiaErYF9gf9WIe",
+      "firstname": "Orlando Felipe",
+      "lastname": "Morales",
       "age": 18,
       "status": "Activo",
-      "id": 2
+      "id": 3
+    },
+    {
+      "email": "pedro@li.ms",
+      "password": "$2a$10$FFy13Vz5./oqotBNIS9f4uUXdvitklPDP4RIpGodVMbW.ijLFzWZa",
+      "firstname": "Pedro Luis",
+      "lastname": "Hernandez",
+      "age": 18,
+      "status": "Activo",
+      "id": 4
+    },
+    {
+      "email": "hh@xxx.com",
+      "password": "$2a$10$spAB6Lr8nSgOWnKh8vFgv.oW7QNi54580/iOuzSvGWc0RHYuqOnAK",
+      "firstname": "Humberto",
+      "lastname": "Ojeda",
+      "age": 18,
+      "status": "Activo",
+      "id": 5
+    },
+    {
+      "email": "dav@ld.cu",
+      "password": "",
+      "firstname": "David L.",
+      "lastname": "Fernandez",
+      "age": 19,
+      "status": "Inactivo",
+      "id": 6
     }
   ],
   "tasks": [
@@ -31,10 +67,42 @@
     {
       "name": "eeeeee",
       "description": "eeeee",
-      "status": "Pendiente",
+      "status": "En progreso",
       "user_assigned": 2,
       "date": "2024-10-04",
       "id": 1
+    },
+    {
+      "name": "Update service",
+      "description": "",
+      "status": "En progreso",
+      "user_assigned": 1,
+      "date": "2024-10-05",
+      "id": 2
+    },
+    {
+      "name": "Create service",
+      "description": "",
+      "status": "Completada",
+      "user_assigned": 2,
+      "date": "2024-10-05",
+      "id": 3
+    },
+    {
+      "name": "Delete service",
+      "description": "",
+      "status": "Pendiente",
+      "user_assigned": 2,
+      "date": "2024-10-05",
+      "id": 4
+    },
+    {
+      "name": "Tarea 1",
+      "description": "Esta es la 1",
+      "status": "Pendiente",
+      "user_assigned": 2,
+      "date": "2024-10-05",
+      "id": 5
     }
   ]
 }

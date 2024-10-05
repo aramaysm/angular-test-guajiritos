@@ -85,7 +85,7 @@ export class AddUserDialogComponent implements OnInit {
         lastname : this.data.params.lastname,
         email: this.data.params.email,
         age: this.data.params.age,
-
+        
       });
         
      this.status = this.data.params.status;     
@@ -102,9 +102,14 @@ export class AddUserDialogComponent implements OnInit {
 
   onSave(){
     if(!this.data.params){
-      if(this.password_confirm?.value === this.password) {
+      
+      if(this.password?.value === ""){
+        alert("Error, la contraseña es requerida");
+      }
+      else if(this.userForm.value.password_confirm !== this.userForm.value.password) {
         alert("Error, las contraseñas no coinciden");
       }
+       
       else{
         const data = {
           id: this.data ? this.data.params?.id : null,

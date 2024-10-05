@@ -26,15 +26,15 @@ export class TaskManagerViewComponent implements OnInit {
   status: string = '';
   status_options = [
     {
-      id: 1,
+      id: StatusTaskEnum.COMPLETED,
       name: StatusTaskEnum.COMPLETED,
     },
     {
-      id: 2,
+      id: StatusTaskEnum.IN_PROGRESS,
       name: StatusTaskEnum.IN_PROGRESS,
     },
     {
-      id: 3,
+      id: StatusTaskEnum.PENDING,
       name: StatusTaskEnum.PENDING,
     },
   ];
@@ -111,8 +111,7 @@ export class TaskManagerViewComponent implements OnInit {
     this.taskService.getAllTask();
   }
 
-  onGetAllTask(newTasks: Task[]) {
-    
+  onGetAllTask(newTasks: Task[]) {    
 
     const taskWithUsers = newTasks.map((item) => {
       return {
@@ -128,6 +127,7 @@ export class TaskManagerViewComponent implements OnInit {
 
   onChangeSelectStatus(status: StatusTaskEnum | 'All') {
     this.status = status;
+    console.log("this.status",this.status)
     if (status === 'All')
       this.dataSource = new MatTableDataSource<Task>(this.dataSourceOriginal);
     else
@@ -142,6 +142,7 @@ export class TaskManagerViewComponent implements OnInit {
 
     switch (operation) {
       case OperatRowEnum.EDIT:
+        this.operation = "Edit"
         break;
       case OperatRowEnum.DELETE:
         alert('Are you sure?' + rowSelected.name);
@@ -150,8 +151,15 @@ export class TaskManagerViewComponent implements OnInit {
   }
 
   onSaveTask(newTask: any) {
-    if (this.operation === 'New') this.taskService.createTask(newTask);
-    else this.taskService.updateTask(newTask);
+    if (this.operation === 'New') this.taskService.createTask(newTask).subscribe((next)=>{
+      this.taskService.getAllTask();
+    });
+    else this.taskService.updateTask(newTask).subscribe((next)=>{
+      this.taskService.getAllTask();
+    });
+
+    this.operation = "New";
+
   }
 
   onSearch(value: string) {
@@ -161,9 +169,7 @@ export class TaskManagerViewComponent implements OnInit {
       this.dataSource = new MatTableDataSource<Task>(
         this.dataSourceOriginal.filter(
           (item) => item.name.toString().includes(value) ||
-           item.user_assigned.includes(value) || item.id === value || item.description.includes(value)
-            
-           
+           item.user_assigned.includes(value) ||  item.description.includes(value)
         )
       );
   }

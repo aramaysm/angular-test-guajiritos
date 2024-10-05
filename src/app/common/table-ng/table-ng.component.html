@@ -54,7 +54,7 @@
     } @else {
     <td mat-cell *matCellDef="let dataSource">
       {{
-        dataSource[colItem.id].id !== undefined
+        dataSource[colItem.id]?.id 
           ? dataSource[colItem.id].name
           : dataSource[colItem.id]
       }}

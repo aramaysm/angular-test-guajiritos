@@ -503,7 +503,8 @@ select, textarea {
   height: 35px;
   padding-left: 10px;
   padding-right: 10px;
+  outline: none;
 }
-input.errorinput {
+input.errorinput, select.errorinput {
   border: 1px solid #f35c6e !important;
 }

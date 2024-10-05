@@ -22,6 +22,7 @@ export class UserService {
           name: item.firstname + ' ' + item.lastname,
         };
       });
+     
       this.evGetAll.emit(users);
     });
   }
@@ -36,14 +37,14 @@ export class UserService {
 
   getUserByName(name: string): any {
     const user = this.usersList.find(
-      (item) => item.firstname.includes(name) || item.lastname.includes(name)
+      (item) => item.firstname.includes(name) || item.lastname.includes(name) || item.firstname + ' ' + item.lastname === name
     );
     if (user) return user;
     else return undefined;
   }
 
   getUserById(id: number): any {
-    console.log("Users list", this.usersList);
+   
     if(this.usersList && this.usersList.length === 0){
       this.getAllUser();
     }

@@ -14,7 +14,7 @@
         </div>
         <div class="col-4">
           <select #selectStatus class=""  (change)="onChangeSelectStatus($event)">
-            <option value="All">Estado</option>
+            <option value="All">Estados</option>
             @for (item of status_options; track item) {
             <option value="{{ item.id }}">{{ item.name }}</option>
             }

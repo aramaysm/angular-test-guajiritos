@@ -38,7 +38,6 @@
           [ngClass]="task_name?.invalid && ( task_name?.touched) ? 'errorinput' :'' "
             type="text"
             id="task_name"
-            [disabled]="data?.params?.status === 'Completed'"
             formControlName="task_name"
             placeholder="Nombre de la tarea"
             
@@ -61,8 +60,7 @@
           <textarea
            rows="3"
             id="desc"
-            [disabled]="data?.params?.status === 'Completed'"
-            formControlName="desc"            
+             formControlName="desc"            
             placeholder="Descripcion de la tarea"
             required
           ></textarea>
@@ -81,11 +79,11 @@
           >
           <select
             #selectStatus
-            [disabled]="data?.params?.status === 'Completed'"
+            [disabled]="data?.params?.status === 'Completada'"
             (change)="onChangeSelectStatus($event)"
           >
             @for (item of status_options; track item) {
-            <option value="{{ item.id }}">{{ item.name }}</option>
+            <option [defaultSelected]="item.id === status" value="{{ item.id }}">{{ item.name }}</option>
             }
           </select>
         </div>
@@ -102,13 +100,10 @@
           >
             Fecha limite</label
           >
-          <label *ngIf="date?.invalid && ( date?.touched)"
-          class="errorinput">
-           La fecha limite es requerida
-        </label>
+          
           <div class="flex row w-full ">
               
-              <input  [disabled]="data?.params?.status === 'Completed'"
+              <input  
                matInput  onkeydown="return false" formControlName="date"
                 [matDatepicker]="picker">
               <mat-datepicker-toggle matIconSuffix [for]="picker">                
@@ -128,17 +123,23 @@
             Asignar a usuario</label
           >
   
-          <div class="flex row w-full just-betw">
+          <div class="flex col w-full just-betw">
             <select
               #selectStatus
-              [disabled]="data?.params?.status === 'Completed'"
+              [disabled]="data?.params?.status === 'Completada'"
               class="w-full "
-              (change)="onChangeSelectStatus($event)"
+              [ngClass]="user_error ? 'errorinput' : ''"
+              (change)="onChangeUser($event)"
             >
+            <option value="-1">Usuarios</option>
               @for (item of userService.users_options; track item) {
               <option [defaultSelected]="item.id === user_assigned" value="{{ item.id }}">{{ item.name }}</option>
               }
             </select>
+            <label *ngIf="user_error "
+          class="errorinput">
+           Debe asignar la tarea a un usuario
+        </label>
           </div>
         </div>
       </div>

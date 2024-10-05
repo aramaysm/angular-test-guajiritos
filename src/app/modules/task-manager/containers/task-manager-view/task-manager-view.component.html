@@ -3,11 +3,12 @@
 [displayedColumns]="displayedColumns"
 (onSave)="onSaveTask($event)"
 [title]="'Listado de tareas'"
-[searchPlaceholder]="'Busque por id, tarea o descripcion'"
+[searchPlaceholder]="'Busque por tarea, descripcion o usuario asignado'"
 [status_options]="status_options"
 (onSelectStatus)="onChangeSelectStatus($event)"
 (onChangeSearch)="onSearch($event)"
-(selectUser)="onSelectTask($event)"
+(selectData)="onSelectTask($event)"
+
 >
 
 </app-layout>
