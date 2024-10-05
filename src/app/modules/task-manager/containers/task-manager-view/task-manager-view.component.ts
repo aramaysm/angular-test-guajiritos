@@ -135,7 +135,7 @@ export class TaskManagerViewComponent implements OnInit {
         this.dataSourceOriginal.filter((item) => item.status === this.status)
       );
   }
-  ///////////////////////////////  AREGLAR FILTER BY Status
+  
 
   onSelectTask({ rowSelected, operation }: any) {
     this.selection.toggle(rowSelected);

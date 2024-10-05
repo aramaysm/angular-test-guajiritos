@@ -19,14 +19,10 @@
   --color-palette-3: #9298cf;
 }
 
-html,
 body {
-  height: 100vh;
-  width: 100vw;
-}
-body {
-  margin: 0;
   font-family: var(--body-font);
+  margin: 0;
+  box-sizing: border-box;
 }
 li {
   list-style: none;
@@ -64,6 +60,9 @@ li {
 .just-betw {
   justify-content: space-between;
 }
+.just-end{
+  justify-content: flex-end;
+}
 .items-center {
   display: flex;
   align-items: center;
@@ -74,6 +73,10 @@ li {
 .w-full {
   width: 100%;
 }
+.wv-full{
+  width: 100vw;
+}
+
 .h-vfull {
   height: 100vh;
 }
@@ -163,6 +166,12 @@ li {
     width: 90%;
     flex-direction: column;
   }
+  .wv-full{
+    width: 100%;
+  }
+  .h-vfull{
+    height: 100vh;
+  }
 }
 
 .gap-1 {
@@ -217,6 +226,15 @@ li {
 }
 .mb-05 {
   margin-bottom: 5px;
+}
+.m-1{
+  margin: 10px;
+}
+.m-2{
+  margin: 20px;
+}
+.m-3{
+  margin: 30px;
 }
 .p-0 {
   padding: 0;

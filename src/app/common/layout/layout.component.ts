@@ -93,7 +93,7 @@ export class LayoutComponent {
           });
         break;
       case OperatRowEnum.DELETE:
-        alert('Are you sure?' + rowSelected.name);
+        this.selectData.emit({rowSelected,operation:"Delete"});
         break;
     }
   }

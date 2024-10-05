@@ -1,9 +1,9 @@
-<div class="row h-vfull">
+<div class="row wv-full  h-vfull">
     <app-sidebar></app-sidebar>
   
-    <div class="col-10 col-sm-8 ms-auto ">
+    <div class="col-95 " style="width: calc(100% - 100px);">
       <app-header [title]="title"></app-header>
-      <div class="row w-full just-around items-center mt-2 ">
+      <div class="col-10 row just-around items-center mt-2 ">
         <div class="col-3">
           <input
           (keyup)="onTypeSearch($event)"
@@ -12,7 +12,7 @@
             [placeholder]="searchPlaceholder"
           />
         </div>
-        <div class="col-4">
+        <div class="col-3">
           <select #selectStatus class=""  (change)="onChangeSelectStatus($event)">
             <option value="All">Estados</option>
             @for (item of status_options; track item) {
@@ -20,8 +20,8 @@
             }
           </select>
         </div>
-        <div class="col-2">
-          <button class="button-Primary" (click)="onHandleNew()">Insertar</button>
+        <div class="col-3 flex">
+          <button class="button-Primary ms-auto" (click)="onHandleNew()">Insertar</button>
         </div>
       </div>
   

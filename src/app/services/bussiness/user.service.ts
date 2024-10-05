@@ -52,4 +52,8 @@ export class UserService {
     if (user) return user.firstname + ' ' + user.lastname;
     else return undefined;
   }
+
+  deleteUser(newData: any){
+    return this.userServiceAPI.deleteUserAPI(newData);
+  }
 }

@@ -1,0 +1,21 @@
+/*
+.mat-dialog-container {
+  border-radius: 20px !important;
+}
+*/
+
+.dialog-notification .mat-dialog-container {
+  border-radius: 50px !important;
+}
+
+.button-Alert{
+  width: 100px;
+  height: 35px; 
+  display: flex;
+  border-radius: 10px;
+  font-size: 13px;
+  justify-content: center;
+  align-items: center;
+  outline: none;
+  border: none;
+}

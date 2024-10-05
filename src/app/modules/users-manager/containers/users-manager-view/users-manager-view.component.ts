@@ -10,6 +10,11 @@ import { User } from '../../../../models/user.model';
 import { UserService } from '../../../../services/bussiness/user.service';
 import { AddUserDialogComponent } from '../../components/add-user-dialog/add-user-dialog.component';
 import { Subscription } from 'rxjs';
+import { DialogService } from '../../../../services/bussiness/dialog.service';
+import {
+  DialogType,
+  DialogConfirm,
+} from '../../../../utils/enums/dialog-type.enum';
 
 @Component({
   selector: 'app-users-manager-view',
@@ -90,7 +95,11 @@ export class UsersManagerViewComponent {
   operation: 'New' | 'Edit' = 'New';
   selection = new SelectionModel<User>(false, []);
 
-  constructor(private userService: UserService, private dialog: MatDialog) {
+  constructor(
+    private userService: UserService,
+    private dialog: MatDialog,
+    private dialogService: DialogService
+  ) {
     this.subscription.push(
       this.userService.evGetAll.subscribe((data) => this.onGetAllUsers(data))
     );
@@ -118,7 +127,23 @@ export class UsersManagerViewComponent {
         this.operation = 'Edit';
         break;
       case OperatRowEnum.DELETE:
-        alert('Are you sure?' + rowSelected.name);
+        this.dialogService
+          .openGenericAlert(
+            DialogType.DT_WARNING,
+            'Confirmación',
+            '¿Está seguro que desea eliminar al usuario?',
+            null,
+            DialogConfirm.BTN_CONFIRM
+          )
+          .afterClosed()
+          .subscribe((next: any) => {
+            if (next?.confirm === true) {
+              this.userService.deleteUser(rowSelected).subscribe(() => {
+                this.userService.getAllUser();
+              });
+            }
+          });
+
         break;
     }
   }

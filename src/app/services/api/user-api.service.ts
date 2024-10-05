@@ -44,4 +44,11 @@ export class UserApiService {
       .pipe(catchError(this.processHttpMsgService.handleError));
   }
 
+  deleteUserAPI(user: User) {    
+    return this.http
+      .delete<User>(serverURL + this.path+'/'+user.id)
+      .pipe(catchError(this.processHttpMsgService.handleError));
+  }
+
+
 }

@@ -4,9 +4,7 @@ table,
 .mat-mdc-paginator {
   background-color: white;
 }
-table{
-  width: 95% !important;
-}
+
 th {
   color: #19191c;
   font-weight: 600;
