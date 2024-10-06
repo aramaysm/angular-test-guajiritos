@@ -38,36 +38,9 @@
       "age": 18,
       "status": "Disponible",
       "id": 4,
-      "rol": 1
+      "rol": 2
     },
-    {
-      "email": "leo@ju.mo",
-      "password": "$2a$10$LqwNZLTfI1R.FwTlNNZyqOTXu0bxAcZnLXJ4KW00f.fRtzicH/Dpa",
-      "firstname": "Leo",
-      "lastname": "Hamlet",
-      "age": 18,
-      "status": "Disponible",
-      "id": 5
-    },
-    {
-      "email": "leoh@jm.co",
-      "password": "$2a$10$AErx9Mmcti72ewqxzCBlMOVfrp5caF0heECJa30soT3e4SzIydMM.",
-      "firstname": "Leo",
-      "lastname": "Hamlet",
-      "age": 18,
-      "status": "Disponible",
-      "id": 6
-    },
-    {
-      "email": "luis@jd.com",
-      "password": "$2a$10$bTPO2WQKd8XzrCaxNSkNLu40JqVuTbwYA8DGV3YtrmRO3UqB9ytUW",
-      "firstname": "Luis",
-      "lastname": "Gomez",
-      "age": 18,
-      "status": "Disponible",
-      "rol": 2,
-      "id": 7
-    },
+    
     {
       "email": "lomb@fdgf.v",
       "password": "",
@@ -75,7 +48,7 @@
       "lastname": "Hernandez",
       "age": 18,
       "status": "Ocupado",
-      "rol": 2,
+      "rol": 3,
       "id": 8
     }
   ],
