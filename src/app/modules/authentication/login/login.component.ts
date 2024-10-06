@@ -5,13 +5,15 @@ import { DialogService } from '../../../services/bussiness/dialog.service';
 import { DialogType } from '../../../utils/enums/dialog-type.enum';
 import { Router } from '@angular/router';
 import { UserRolEnum } from '../../../utils/enums/userrol.enum';
-
+ 
 @Component({
   selector: 'app-login',  
   templateUrl: './login.component.html',
   styleUrl: './login.component.css'
 })
 export class LoginComponent {
+
+
 
   loginForm = new FormGroup({   
     email : new FormControl('',[
