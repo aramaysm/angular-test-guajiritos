@@ -1,27 +1,36 @@
-# TestTaskGuajiritos
+# 1. Clona el proyecto
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 18.2.6.
+`git clone https://github.com/aramaysm/angular-test-guajiritos.git`
 
-## Development server
+Ve a la raiz del proyecto
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
+`cd angular-test-guajiritos`
 
-## Code scaffolding
+# 2. Instala las dependencias
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+ `npm install` 
+ 
+ Instala json-server y json-server-auth de manera global (si no lo tienes instalado):
 
-## Build
+ `npm install -g json-server json-server-auth`
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
+# 3. Ejecuta los servidores
 
-## Running unit tests
+`json-server-auth --watch db.json`  --- Servidor de prueba API
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+`npm start`  --- Servidor de Angular
 
-## Running end-to-end tests
+## Adaptaciones a los Requerimientos
 
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
+En la implementación de este test, se han adaptado los roles de usuarios para añadir más control en la gestión de permisos. Se definieron tres roles:
+* Superadmin: Este rol tiene el poder de gestionar usuarios con el rol de admin. Solo puede ver y administrar usuarios con el rol admin.
 
-## Further help
+* Admin: Este rol gestiona usuarios con el rol user. Puede ver y administrar usuarios de nivel inferior, pero no puede gestionar usuarios con rol de admin o superadmin. Ademas se encarga de la gestion y asignacion de tareas.
 
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+* User: Este rol solo puede ver las tareas que han sido asignadas a ellos, ademas puede actualizar el estado de las tareas asignadas (por ejemplo, de "pendiente" a "completada").
+No tienen permiso para crear, ni asignar tareas a otros usuarios.
+
+### Los usuarios creados puede verificarlos en el archivo db.json. Puede tomar como ejemplo, para probar, los siguientes:
+Super admin: email:lomb@fdgf.v  password: lomb
+Admin: email: aramaysm@gmail.com   password: aram
+User: email: pepe@ee.mk    password: pepe
