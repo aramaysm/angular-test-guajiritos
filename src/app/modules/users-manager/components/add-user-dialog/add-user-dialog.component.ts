@@ -122,8 +122,7 @@ export class AddUserDialogComponent implements OnInit {
           password: this.userForm.value.password,
           age: this.userForm.value.age,
           status: this.status,
-          rol: this.data ?  this.data.params?.rol :
-           (this.authService.token.rol === UserRolEnum.ADMIN) ? 2 : 1
+          rol: (this.authService.token.rol === UserRolEnum.ADMIN) ? 2 : 1
         }
         this.dialogRef.close(data);
       }
@@ -137,7 +136,8 @@ export class AddUserDialogComponent implements OnInit {
         password: this.userForm.value.password,
         age: this.userForm.value.age,
         status: this.status,
-        
+        rol: this.data.params?.rol 
+      
       }
       this.dialogRef.close(data);
     }

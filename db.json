@@ -39,6 +39,24 @@
       "status": "Activo",
       "id": 4,
       "rol": 1
+    },
+    {
+      "email": "leo@ju.mo",
+      "password": "$2a$10$LqwNZLTfI1R.FwTlNNZyqOTXu0bxAcZnLXJ4KW00f.fRtzicH/Dpa",
+      "firstname": "Leo",
+      "lastname": "Hamlet",
+      "age": 18,
+      "status": "Activo",
+      "id": 5
+    },
+    {
+      "email": "leoh@jm.co",
+      "password": "$2a$10$AErx9Mmcti72ewqxzCBlMOVfrp5caF0heECJa30soT3e4SzIydMM.",
+      "firstname": "Leo",
+      "lastname": "Hamlet",
+      "age": 18,
+      "status": "Activo",
+      "id": 6
     }
   ],
   "tasks": [
@@ -51,17 +69,9 @@
       "date": "2024-09-04"
     },
     {
-      "name": "eeeeee",
-      "description": "eeeee",
-      "status": "Completada",
-      "user_assigned": 2,
-      "date": "2024-10-04",
-      "id": 1
-    },
-    {
       "name": "Update service",
       "description": "",
-      "status": "En progreso",
+      "status": "Completada",
       "user_assigned": 3,
       "date": "2024-10-05",
       "id": 2
@@ -81,6 +91,14 @@
       "user_assigned": 4,
       "date": "2024-10-06",
       "id": 5
+    },
+    {
+      "name": "Tresr",
+      "description": "tres",
+      "status": "Pendiente",
+      "user_assigned": 3,
+      "date": "2024-10-06",
+      "id": 6
     }
   ]
 }

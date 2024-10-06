@@ -118,10 +118,15 @@ export class TaskManagerViewComponent implements OnInit {
   ngOnInit(): void {
     this.authService.loadUser();
 
+
+    if ( this.authService.token?.rol === UserRolEnum.ADMIN)
+      this.userService.getAllUser();
+
       if ( this.authService.token?.rol === UserRolEnum.USER)
         this.taskService.getTaskByUser(this.authService.token.id);
       else this.taskService.getAllTask();   
    
+
   }
 
   onGetAllTask(newTasks: Task[]) {
