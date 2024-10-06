@@ -5,6 +5,8 @@ import { StatusTaskEnum } from '../../../../utils/enums/status_task.enum';
 import { StatusUserEnum } from '../../../../utils/enums/status_user.enum';
 import { AuthService } from '../../../../services/bussiness/auth.service';
 import { UserRolEnum } from '../../../../utils/enums/userrol.enum';
+import { DialogService } from '../../../../services/bussiness/dialog.service';
+import { DialogType } from '../../../../utils/enums/dialog-type.enum';
 
 @Component({
   selector: 'app-add-user-dialog',
@@ -55,7 +57,8 @@ export class AddUserDialogComponent implements OnInit {
   constructor(
     private dialogRef: MatDialogRef<any>,
     @Inject(MAT_DIALOG_DATA) public data: any,
-    private authService: AuthService
+    private authService: AuthService,
+     private dialogService: DialogService
   ) {
     
   }
@@ -107,10 +110,19 @@ export class AddUserDialogComponent implements OnInit {
   onSave(){
     if(!this.data.params){      
       if(this.password?.value === ""){
-        alert("Error, la contraseña es requerida");
+        this.dialogService.openGenericAlert(
+          DialogType.DT_ERROR,
+          'Error',
+          "La contraseña es requerida"
+        );
       }
       else if(this.userForm.value.password_confirm !== this.userForm.value.password) {
-        alert("Error, las contraseñas no coinciden");
+      
+        this.dialogService.openGenericAlert(
+          DialogType.DT_ERROR,
+          'Error',
+          "Las contraseñas no coinciden"
+        );
       }
        
       else{

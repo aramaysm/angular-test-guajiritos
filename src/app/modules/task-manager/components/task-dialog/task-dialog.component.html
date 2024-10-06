@@ -5,7 +5,7 @@
   >
     <div class="flex just-betw items-center p-2 w-full">
       <span id="title-dialog">{{
-        data?.params?.status === 'Completada' ? 'Detalles de la tarea' : data?.params?.status !== 'Completada'  ? "Editar tarea" : "Insertar tarea"
+        data?.params?.status === 'Completada' ? 'Detalles de la tarea' : data?.params && data?.params?.status !== 'Completada'  ? "Editar tarea" : "Insertar tarea"
       }}</span>
       <button class="bg-white border-none text-black" style="cursor: pointer;" (click)="onClose()">
         <svg
@@ -133,8 +133,8 @@
                 (change)="onChangeUser($event)"
               >
               <option value="-1">Usuarios</option>
-                @for (item of userService.users_options; track item) {
-                <option [defaultSelected]="item.id === user_assigned" value="{{ item.id }}">{{ item.name }}</option>
+                @for (item of usersList; track item) {
+                <option [defaultSelected]="item.id === user_assigned" value="{{ item.id }}">{{ item.firstname + ' ' + item.lastname }}</option>
                 }
               </select>
               <label *ngIf="user_error "

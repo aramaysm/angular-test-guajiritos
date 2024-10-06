@@ -8,7 +8,6 @@ import { Observable } from 'rxjs';
 })
 export class UserService {
   usersList: User[] = [];
-  users_options: any[] = [];
   @Output() evGetAll = new EventEmitter<User[]>();
 
   constructor(private userServiceAPI: UserApiService) {
@@ -18,13 +17,7 @@ export class UserService {
   getAllUser() {
     this.userServiceAPI.getAllUserAPI().subscribe((users) => {
       this.usersList = users;
-      this.users_options = users.map((item) => {
-        return {
-          id: item.id,
-          name: item.firstname + ' ' + item.lastname,
-        };
-      });
-     
+
       this.evGetAll.emit(users);
     });
   }
@@ -39,15 +32,17 @@ export class UserService {
 
   getUserByName(name: string): any {
     const user = this.usersList.find(
-      (item) => item.firstname.includes(name) || item.lastname.includes(name) || item.firstname + ' ' + item.lastname === name
+      (item) =>
+        item.firstname.includes(name) ||
+        item.lastname.includes(name) ||
+        item.firstname + ' ' + item.lastname === name
     );
     if (user) return user;
     else return undefined;
   }
 
   getUserById(id: number): any {
-   
-    if(this.usersList && this.usersList.length === 0){
+    if (this.usersList && this.usersList.length === 0) {
       this.getAllUser();
     }
     const user = this.usersList.find((item) => item.id === id);
@@ -55,21 +50,18 @@ export class UserService {
     else return undefined;
   }
 
-  deleteUser(newData: any){
+  deleteUser(newData: any) {
     return this.userServiceAPI.deleteUserAPI(newData);
   }
 
-  getUserByRol(rol:number){
+  getUserByRol(rol: number) {
     return this.userServiceAPI.getUserByRol(rol).subscribe((users) => {
       this.usersList = users;
-      this.users_options = users.map((item) => {
-        return {
-          id: item.id,
-          name: item.firstname + ' ' + item.lastname,
-        };
-      });
-     
       this.evGetAll.emit(users);
-    });;
+    });
+  }
+
+  getUsersActive() {
+    return this.userServiceAPI.getUserActive();
   }
 }

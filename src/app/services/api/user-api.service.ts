@@ -57,5 +57,14 @@ export class UserApiService {
       .pipe(catchError(this.processHttpMsgService.handleError));
   }
 
+  getUserActive(){
+    let params = new HttpParams();
+    params = params.append('rol', 2 + '');
+    params = params.append('status', 'Disponible' + '');
+    return this.http
+      .get<User[]>(serverURL + this.path,{params})
+      .pipe(catchError(this.processHttpMsgService.handleError));
+  }
+
 
 }

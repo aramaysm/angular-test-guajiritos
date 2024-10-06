@@ -6,6 +6,8 @@ import { DateValidator } from '../../../../utils/validators/date_validator';
 import { UserService } from '../../../../services/bussiness/user.service';
 import { Subscription } from 'rxjs';
 import { AuthService } from '../../../../services/bussiness/auth.service';
+import { User } from '../../../../models/user.model';
+import { UserRolEnum } from '../../../../utils/enums/userrol.enum';
 
 
 @Component({
@@ -55,6 +57,7 @@ export class TaskDialogComponent implements OnInit {
   user_assigned: number = -1;
   subscription: Subscription[] = new Array<Subscription>();
   user_error: boolean = false;
+  usersList: User[] = []
   
 
   get task_name() {
@@ -70,7 +73,7 @@ export class TaskDialogComponent implements OnInit {
   
   ngOnInit(): void {
 
-    
+    this.authService.loadUser();
 
     if (this.data.params !== undefined) {
       this.taskForm.patchValue({
@@ -79,7 +82,7 @@ export class TaskDialogComponent implements OnInit {
         date: this.data.params.date,        
       });
 
-     if(this.data?.params?.status === 'Completada' ) {
+     if(this.data?.params?.status === 'Completada' || this.authService.token.rol === UserRolEnum.USER ) {
       this.taskForm.get('task_name')?.disable();
       this.taskForm.get('desc')?.disable();
       this.taskForm.get('date')?.disable();
@@ -90,9 +93,10 @@ export class TaskDialogComponent implements OnInit {
      this.user_assigned = this.userService.getUserByName(this.data.params.user_assigned).id 
     }
     
-    if(this.userService.usersList && this.userService.usersList.length === 0 )
-      this.userService.getAllUser();
-
+    
+    this.userService.getUsersActive().subscribe((next)=>{
+      this.usersList = next;
+    });
 
   }
 

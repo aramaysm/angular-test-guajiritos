@@ -6,7 +6,7 @@
       "firstname": "Aramays",
       "lastname": "Morales",
       "age": 18,
-      "status": "Activo",
+      "status": "Disponible",
       "id": 1,
       "rol": 1
     },
@@ -16,7 +16,7 @@
       "firstname": "Jose Antonio",
       "lastname": "Duran",
       "age": 19,
-      "status": "Inactivo",
+      "status": "Disponible",
       "id": 2,
       "rol": 2
     },
@@ -26,7 +26,7 @@
       "firstname": "Orlando Felipe",
       "lastname": "Morales",
       "age": 18,
-      "status": "Activo",
+      "status": "Disponible",
       "id": 3,
       "rol": 1
     },
@@ -36,7 +36,7 @@
       "firstname": "Pedro Luis",
       "lastname": "Hernandez",
       "age": 18,
-      "status": "Activo",
+      "status": "Disponible",
       "id": 4,
       "rol": 1
     },
@@ -46,7 +46,7 @@
       "firstname": "Leo",
       "lastname": "Hamlet",
       "age": 18,
-      "status": "Activo",
+      "status": "Disponible",
       "id": 5
     },
     {
@@ -55,50 +55,38 @@
       "firstname": "Leo",
       "lastname": "Hamlet",
       "age": 18,
-      "status": "Activo",
+      "status": "Disponible",
       "id": 6
+    },
+    {
+      "email": "luis@jd.com",
+      "password": "$2a$10$bTPO2WQKd8XzrCaxNSkNLu40JqVuTbwYA8DGV3YtrmRO3UqB9ytUW",
+      "firstname": "Luis",
+      "lastname": "Gomez",
+      "age": 18,
+      "status": "Disponible",
+      "rol": 2,
+      "id": 7
+    },
+    {
+      "email": "lomb@fdgf.v",
+      "password": "",
+      "firstname": "Lomberto",
+      "lastname": "Hernandez",
+      "age": 18,
+      "status": "Ocupado",
+      "rol": 2,
+      "id": 8
     }
   ],
   "tasks": [
     {
-      "id": 0,
-      "name": "Design strategy",
-      "description": "This is the descrption of design strategy",
-      "status": "Completada",
-      "user_assigned": 1,
-      "date": "2024-09-04"
-    },
-    {
       "name": "Update service",
-      "description": "",
-      "status": "Completada",
-      "user_assigned": 3,
-      "date": "2024-10-05",
-      "id": 2
-    },
-    {
-      "name": "Delete service",
-      "description": "",
-      "status": "En progreso",
+      "description": "Update service Jose A",
+      "status": "Pendiente",
       "user_assigned": 2,
-      "date": "2024-10-05",
-      "id": 4
-    },
-    {
-      "name": "preguntar a Carlos",
-      "description": "",
-      "status": "Pendiente",
-      "user_assigned": 4,
       "date": "2024-10-06",
-      "id": 5
-    },
-    {
-      "name": "Tresr",
-      "description": "tres",
-      "status": "Pendiente",
-      "user_assigned": 3,
-      "date": "2024-10-06",
-      "id": 6
+      "id": 1
     }
   ]
 }

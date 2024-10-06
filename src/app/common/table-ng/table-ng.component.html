@@ -41,9 +41,9 @@
       <div
         class="rounded-10 just-center items-center"
         [ngClass]="
-          dataSource[colItem.id] === 'Completada' || dataSource[colItem.id] === 'Activo'
+          dataSource[colItem.id] === 'Completada' || dataSource[colItem.id] === 'Disponible'
             ? 'Chip-success'
-            : dataSource[colItem.id] === 'Pendiente' || dataSource[colItem.id] === 'Inactivo'
+            : dataSource[colItem.id] === 'Pendiente' || dataSource[colItem.id] === 'Ocupado'
             ? 'Chip-warning'
             : 'Chip-info'
         "

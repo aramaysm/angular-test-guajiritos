@@ -176,12 +176,21 @@ export class UsersManagerViewComponent {
     if (this.operation === 'New')
       this.userService.createUser(newUser).subscribe(
         (next) => {
+          this.dialogService.openGenericAlert(
+            DialogType.DT_SUCCESS,
+            'Información',
+            "El usuario fue creado con éxito"
+          );
           if ( this.authService.token?.rol === UserRolEnum.ADMIN)
             this.userService.getUserByRol(UserRolEnum.USER);
           else this.userService.getUserByRol(UserRolEnum.ADMIN); 
         },
         (err) => {
-          this,
+          this.dialogService.openGenericAlert(
+            DialogType.DT_SUCCESS,
+            'Información',
+            "El usuario fue editado con éxito"
+          );
             this.dialogService.openGenericAlert(
               DialogType.DT_ERROR,
               'Error',
