@@ -1,4 +1,4 @@
-import { HttpHeaders, HttpClient } from '@angular/common/http';
+import { HttpHeaders, HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { ProcessHTTPMSgService } from '../bussiness/ProcessHTTPMSg.service';
 import { serverURL } from '../../utils/enums/url.path.enum';
@@ -40,12 +40,24 @@ export class TaskApiService {
       .patch<Task>(serverURL + this.path+'/'+task.id, task)
       .pipe(catchError(this.processHttpMsgService.handleError));
   }
-
+  deleteTaskAPI(task: Task): Observable<Task> {
+    return this.http
+      .delete<Task>(serverURL + this.path+'/'+task.id)
+      .pipe(catchError(this.processHttpMsgService.handleError));
+  }
   changeStateTaskAPI(newState: StatusTaskEnum, id: number): Observable<Task> {
     return this.http
       .patch<Task>(serverURL + this.path+'/'+id, {
         status: newState
       })
+      .pipe(catchError(this.processHttpMsgService.handleError));
+  }
+
+  getTaskByUser(id:number){
+    let params = new HttpParams();
+    params = params.append('user_assigned', id + '');
+    return this.http
+      .get<Task[]>(serverURL + this.path,{params})
       .pipe(catchError(this.processHttpMsgService.handleError));
   }
 }

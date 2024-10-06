@@ -1,20 +1,30 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { AuthService } from '../../services/bussiness/auth.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-header',
   standalone: true,
-  imports: [],
+  imports: [],  
   templateUrl: './header.component.html',
   styleUrl: './header.component.css'
 })
-export class HeaderComponent {
+export class HeaderComponent implements OnInit{
  
   @Input() title: string = "";
 
-  constructor(private authService: AuthService){
+  constructor(public authService: AuthService, private router: Router,
+   ){
 
   }
+  
+  ngOnInit(): void {
+   this.authService.loadUser();
+  }
 
+  
+  onLogout(){
+    this.router.navigateByUrl('/auth', { replaceUrl: true });
+  }
 
 }

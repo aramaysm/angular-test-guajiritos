@@ -27,4 +27,14 @@ export class TaskService {
   updateTask(newData: any):Observable<Task>{
     return this.taskServiceAPI.editTaskAPI(newData);
   }
+  deleteTask(newData: any):Observable<Task>{
+    return this.taskServiceAPI.deleteTaskAPI(newData);
+  }
+
+  getTaskByUser(id:number){
+    return this.taskServiceAPI.getTaskByUser(id).subscribe((tasks)=>{
+      this.taskList = tasks;      
+      this.evGetAll.emit(tasks);
+     });;
+  }
 }

@@ -329,7 +329,7 @@ li {
   border: none !important;
   border-radius: 10px !important;
   width: 120px !important;
-  cursor: pointer;
+  cursor: pointer !important;
 }
 .button-Primary:disabled {
   background-color: #cfd1d1 !important; /**#4705FF-Moradito azuloso 3106BB*/
@@ -477,6 +477,9 @@ li {
 .border-b-2 {
   border-bottom: 2px solid #e6e6e6;
 }
+.border-l-2 *{
+  color:  #ffffff;
+}
 .shadow{
   box-shadow:0 0 0.35rem gray;
 }
@@ -503,9 +506,13 @@ li {
 .text-black {
   color: #000;
 }
+.text-primary{
+  color: var(--main-color-info);
+}
 .text-gray-900 {
   color: gray 900;
 }
+
 label.errorinput {
   font-size: 11px;
   color: #f35c6e;

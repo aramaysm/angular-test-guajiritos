@@ -11,7 +11,7 @@ export class ProcessHTTPMSgService {
   constructor(private router: Router) { }
 
   public handleError(response: HttpErrorResponse | any) {
-      console.error('handleError', response);
+      
       let errMsg: string = '';
 
       if(response.status === 504 || (response.status === 0 
@@ -23,7 +23,7 @@ export class ProcessHTTPMSgService {
         errMsg = 'Operation not allowed.';        
       } 
       else if (response.status === 401 || response.statusText === 'Unauthorized' ) 
-      this.router.navigateByUrl('/auth/users/login', { replaceUrl: true });
+      this.router.navigateByUrl('/login', { replaceUrl: true });
            
       else if (response.error instanceof ErrorEvent) {
         errMsg = response.error.message;
@@ -34,6 +34,6 @@ export class ProcessHTTPMSgService {
       } else {
         errMsg = `${response.statusText || ''} ${response.message}`;
       }
-      return throwError(errMsg);
+      return throwError(() => errMsg);;
     }
 }

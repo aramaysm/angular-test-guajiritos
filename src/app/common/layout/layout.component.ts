@@ -10,6 +10,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { Observable } from 'rxjs';
 import { OperatRowEnum } from '../../utils/enums/operat_row.enum';
 import { TableNgComponent } from '../table-ng/table-ng.component';
+import { AuthService } from '../../services/bussiness/auth.service';
 
 
 @Component({
@@ -34,11 +35,12 @@ export class LayoutComponent {
   operation: 'New' | 'Edit' = 'New';
   selection = new SelectionModel<any>(false, []);
 
-  constructor( private dialog: MatDialog) {}
+  constructor( private dialog: MatDialog, public authService: AuthService) {}
 
 
   ngOnInit(): void {
-       
+    this.authService.loadUser();
+
   }
 
   onHandleNew() {

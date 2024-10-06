@@ -2,21 +2,23 @@
   "users": [
     {
       "email": "aramaysm@gmail.com",
-      "password": "",
+      "password": "$2a$10$2Q7DOXz1WnoGXxIT62Xkr.Gx.fcbzVHgtNChNr2YWTjIKzHg2e8LC",
       "firstname": "Aramays",
       "lastname": "Morales",
       "age": 18,
       "status": "Activo",
-      "id": 1
+      "id": 1,
+      "rol": 1
     },
     {
       "email": "pepe@ee.mk",
-      "password": "",
+      "password": "$2a$10$BVIwwa.WYvCbm0Cp10IAXO03t8L5CiW1lYRdNFzkBM5aP6N5dIDiS",
       "firstname": "Jose Antonio",
       "lastname": "Duran",
       "age": 19,
       "status": "Inactivo",
-      "id": 2
+      "id": 2,
+      "rol": 2
     },
     {
       "email": "felipe@mdm.cu",
@@ -25,7 +27,8 @@
       "lastname": "Morales",
       "age": 18,
       "status": "Activo",
-      "id": 3
+      "id": 3,
+      "rol": 2
     },
     {
       "email": "pedro@li.ms",
@@ -34,7 +37,8 @@
       "lastname": "Hernandez",
       "age": 18,
       "status": "Activo",
-      "id": 4
+      "id": 4,
+      "rol": 1
     }
   ],
   "tasks": [
@@ -49,7 +53,7 @@
     {
       "name": "eeeeee",
       "description": "eeeee",
-      "status": "En progreso",
+      "status": "Completada",
       "user_assigned": 2,
       "date": "2024-10-04",
       "id": 1
@@ -58,32 +62,24 @@
       "name": "Update service",
       "description": "",
       "status": "En progreso",
-      "user_assigned": 1,
+      "user_assigned": 3,
       "date": "2024-10-05",
       "id": 2
     },
     {
-      "name": "Create service",
-      "description": "",
-      "status": "Completada",
-      "user_assigned": 2,
-      "date": "2024-10-05",
-      "id": 3
-    },
-    {
       "name": "Delete service",
       "description": "",
-      "status": "Pendiente",
+      "status": "En progreso",
       "user_assigned": 2,
       "date": "2024-10-05",
       "id": 4
     },
     {
-      "name": "Tarea 1",
-      "description": "Esta es la 1",
+      "name": "preguntar a Carlos",
+      "description": "",
       "status": "Pendiente",
-      "user_assigned": 2,
-      "date": "2024-10-05",
+      "user_assigned": 4,
+      "date": "2024-10-06",
       "id": 5
     }
   ]

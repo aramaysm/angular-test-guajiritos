@@ -21,7 +21,10 @@
           </select>
         </div>
         <div class="col-3 flex">
-          <button class="button-Primary ms-auto" (click)="onHandleNew()">Insertar</button>
+          @if (authService.token?.rol === 1) {
+            <button class="button-Primary ms-auto" (click)="onHandleNew()">Insertar</button>
+          }
+        
         </div>
       </div>
   

@@ -5,6 +5,7 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { DateValidator } from '../../../../utils/validators/date_validator';
 import { UserService } from '../../../../services/bussiness/user.service';
 import { Subscription } from 'rxjs';
+import { AuthService } from '../../../../services/bussiness/auth.service';
 
 
 @Component({
@@ -18,6 +19,7 @@ export class TaskDialogComponent implements OnInit {
     private dialogRef: MatDialogRef<any>,
     @Inject(MAT_DIALOG_DATA) public data: any,
     public userService: UserService,
+    public authService: AuthService
   ) {
     
   }
@@ -67,6 +69,9 @@ export class TaskDialogComponent implements OnInit {
   }
   
   ngOnInit(): void {
+
+    
+
     if (this.data.params !== undefined) {
       this.taskForm.patchValue({
         task_name: this.data.params.name,
@@ -75,9 +80,9 @@ export class TaskDialogComponent implements OnInit {
       });
 
      if(this.data?.params?.status === 'Completada' ) {
-      this.taskForm.get('task_name')?.disable;
-      this.taskForm.get('desc')?.disable;
-      this.taskForm.get('date')?.disable;
+      this.taskForm.get('task_name')?.disable();
+      this.taskForm.get('desc')?.disable();
+      this.taskForm.get('date')?.disable();
      }
       
 
@@ -105,16 +110,23 @@ export class TaskDialogComponent implements OnInit {
     if(this.user_assigned === -1){
       this.user_error = true;
     }
-    else{      
-      const data = {
-        id: this.data ? this.data.params?.id : null,
-        name: this.taskForm.value.task_name,
-        description: this.taskForm.value.desc,
-        status: this.status,
-        user_assigned: this.user_assigned,
-        date: this.data.params?.id ? this.taskForm.value.date : this.taskForm.value.date?.toISOString().substring(0,10)
+    else{  
+      if(this.data?.params?.status === 'Completada')   {
+        this.dialogRef.close();
+      } 
+      else{
+        const data = {
+          id: this.data ? this.data.params?.id : null,
+          name: this.taskForm.value.task_name,
+          description: this.taskForm.value.desc,
+          status: this.status,
+          user_assigned: this.user_assigned,
+          date: this.data.params?.id ? this.taskForm.value.date : this.taskForm.value.date?.toISOString().substring(0,10)
+        }
+  
+        this.dialogRef.close(data);
       }
-      this.dialogRef.close(data);
+      
     }
     
   }

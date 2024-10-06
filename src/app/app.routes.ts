@@ -6,7 +6,7 @@ export const routes: Routes = [
     },
     {
       "path" : "auth",
-      loadChildren: () => import("./modules/users-manager/users-manager.module").then(value => value.UsersManagerModule)
+      loadChildren: () => import("./modules/authentication/authentication.module").then(value => value.AuthenticationModule)
     },
     {
       "path" : "user",

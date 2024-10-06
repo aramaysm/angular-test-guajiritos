@@ -138,9 +138,18 @@ export class UsersManagerViewComponent {
           .afterClosed()
           .subscribe((next: any) => {
             if (next?.confirm === true) {
-              this.userService.deleteUser(rowSelected).subscribe(() => {
-                this.userService.getAllUser();
-              });
+              this.userService.deleteUser(rowSelected).subscribe(
+                () => {
+                  this.userService.getAllUser();
+                },
+                (err) => {
+                  this.dialogService.openGenericAlert(
+                    DialogType.DT_ERROR,
+                    'Error',
+                    err
+                  );
+                }
+              );
             }
           });
 
@@ -155,13 +164,33 @@ export class UsersManagerViewComponent {
 
   onSaveUser(newUser: any) {
     if (this.operation === 'New')
-      this.userService.createUser(newUser).subscribe((next) => {
-        this.userService.getAllUser();
-      });
+      this.userService.createUser(newUser).subscribe(
+        (next) => {
+          this.userService.getAllUser();
+        },
+        (err) => {
+          this,
+            this.dialogService.openGenericAlert(
+              DialogType.DT_ERROR,
+              'Error',
+              err
+            );
+        }
+      );
     else
-      this.userService.updateUser(newUser).subscribe((next) => {
-        this.userService.getAllUser();
-      });
+      this.userService.updateUser(newUser).subscribe(
+        (next) => {
+          this.userService.getAllUser();
+        },
+        (err) => {
+          this,
+            this.dialogService.openGenericAlert(
+              DialogType.DT_ERROR,
+              'Error',
+              err
+            );
+        }
+      );
   }
 
   onSearch(value: string) {

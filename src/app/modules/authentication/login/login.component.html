@@ -1,0 +1,63 @@
+<div style="width: 100vw; background-image: url('../../../assets/Sprinkle.svg');" class="row h-vfull just-center items-center">
+  <div class="col-3 col-sm-9 shadow just-around items-center p-2 rounded-10">
+   
+        <form [formGroup]="loginForm" class="col items-center" (ngSubmit)="onSave()">
+            <div style="width: 70px; height: 70px" class="">
+                <svg
+                class="text-primary"
+                  aria-hidden="true"
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="none"
+                  viewBox="0 0 16 20"
+                >
+                  <path
+                    stroke="currentColor"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M11.5 8V4.5a3.5 3.5 0 1 0-7 0V8M8 12v3M2 8h12a1 1 0 0 1 1 1v9a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V9a1 1 0 0 1 1-1Z"
+                  />
+                </svg>
+              </div>
+              <div class="flex just-center mt-2">
+                <h3 class="text-primary">Inicie sesión con sus credenciales</h3>
+              </div>
+              <div class="flex col-9 row flex-wrap w-full just-center">
+                <div class="flex col-9 mt-1">
+                  <label id="label_email" for="email" class="text-gray-900">
+                    Correo*
+                  </label>
+                  <input
+                   
+                    type="text"
+                    id="email"
+                    formControlName="email"
+                    placeholder="Correo"
+                  />
+                 
+                </div>
+                <div class="flex col-9 mt-2">
+                  <label id="label_password" for="password" class="text-gray-900">
+                    Contraseña
+                  </label>
+                  <input
+                    
+                    type="password"
+                    id="password"
+                    formControlName="password"
+                    placeholder="Contraseña"
+                  />
+                  
+                </div>
+              </div>
+              <div class=" mt-3">
+                <button class="button-Primary "
+                [disabled]="email?.invalid || password?.invalid"
+                type="submit">Entrar</button>
+              </div>
+
+        </form>
+      
+   
+  </div>
+</div>

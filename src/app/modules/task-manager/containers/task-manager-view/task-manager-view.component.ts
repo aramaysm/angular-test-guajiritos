@@ -13,6 +13,12 @@ import { OperatRowEnum } from '../../../../utils/enums/operat_row.enum';
 import { SelectionModel } from '@angular/cdk/collections';
 import { Observable, Subscription } from 'rxjs';
 import { UserService } from '../../../../services/bussiness/user.service';
+import { DialogService } from '../../../../services/bussiness/dialog.service';
+import {
+  DialogConfirm,
+  DialogType,
+} from '../../../../utils/enums/dialog-type.enum';
+import { AuthService } from '../../../../services/bussiness/auth.service';
 
 @Component({
   selector: 'app-task-manager-view',
@@ -100,7 +106,9 @@ export class TaskManagerViewComponent implements OnInit {
   constructor(
     private taskService: TaskService,
     private dialog: MatDialog,
-    private userService: UserService
+    private userService: UserService,
+    private dialogService: DialogService,
+    private authService: AuthService
   ) {
     this.subscription.push(
       this.taskService.evGetAll.subscribe((data) => this.onGetAllTask(data))
@@ -108,26 +116,30 @@ export class TaskManagerViewComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.taskService.getAllTask();
+    this.authService.loadUser();
+
+      if ( this.authService.token?.rol === UserRolEnum.USER)
+        this.taskService.getTaskByUser(this.authService.token.id);
+      else this.taskService.getAllTask();   
+   
   }
 
-  onGetAllTask(newTasks: Task[]) {    
-
+  onGetAllTask(newTasks: Task[]) {
     const taskWithUsers = newTasks.map((item) => {
       return {
         ...item,
         user_assigned: this.userService.getUserById(item.user_assigned),
       };
     });
-    
+
     this.dataSourceOriginal = taskWithUsers;
-    
+
     this.dataSource = new MatTableDataSource<Task>(taskWithUsers);
   }
 
   onChangeSelectStatus(status: StatusTaskEnum | 'All') {
     this.status = status;
-    console.log("this.status",this.status)
+
     if (status === 'All')
       this.dataSource = new MatTableDataSource<Task>(this.dataSourceOriginal);
     else
@@ -135,31 +147,94 @@ export class TaskManagerViewComponent implements OnInit {
         this.dataSourceOriginal.filter((item) => item.status === this.status)
       );
   }
-  
 
   onSelectTask({ rowSelected, operation }: any) {
     this.selection.toggle(rowSelected);
 
     switch (operation) {
       case OperatRowEnum.EDIT:
-        this.operation = "Edit"
+        this.operation = 'Edit';
         break;
       case OperatRowEnum.DELETE:
-        alert('Are you sure?' + rowSelected.name);
+        this.dialogService
+          .openGenericAlert(
+            DialogType.DT_WARNING,
+            'Confirmación',
+            '¿Está seguro que desea eliminar la tarea?',
+            null,
+            DialogConfirm.BTN_CONFIRM
+          )
+          .afterClosed()
+          .subscribe((next: any) => {
+            if (next?.confirm === true) {
+              this.taskService.deleteTask(rowSelected).subscribe(
+                () => {
+                  if (this.authService.token?.rol === UserRolEnum.USER)
+                    this.taskService.getTaskByUser(this.authService.token.id);
+                  else this.taskService.getAllTask();
+
+                  this.operation = "New";
+                },
+                (err) => {
+                  this.dialogService.openGenericAlert(
+                    DialogType.DT_ERROR,
+                    'Error',
+                    err
+                  );
+                }
+              );
+            }
+          });
         break;
     }
   }
 
   onSaveTask(newTask: any) {
-    if (this.operation === 'New') this.taskService.createTask(newTask).subscribe((next)=>{
-      this.taskService.getAllTask();
-    });
-    else this.taskService.updateTask(newTask).subscribe((next)=>{
-      this.taskService.getAllTask();
-    });
+    if (this.operation === 'New')
+      this.taskService.createTask(newTask).subscribe(
+        (next) => {
+          this.dialogService.openGenericAlert(
+            DialogType.DT_SUCCESS,
+            'Informacion',
+            'La tarea fue creada exitosamente'
+          );
+          if (this.authService.token?.rol === UserRolEnum.USER)
+            this.taskService.getTaskByUser(this.authService.token.id);
+          else this.taskService.getAllTask();
+        },
+        (err) => {
+          this,
+            this.dialogService.openGenericAlert(
+              DialogType.DT_ERROR,
+              'Error',
+              err
+            );
+        }
+      );
+    else
+      this.taskService.updateTask(newTask).subscribe(
+        (next) => {
+          this.dialogService.openGenericAlert(
+            DialogType.DT_SUCCESS,
+            'Informacion',
+            'La tarea fue editada exitosamente'
+          );
 
-    this.operation = "New";
+          if (this.authService.token?.rol === UserRolEnum.USER)
+            this.taskService.getTaskByUser(this.authService.token.id);
+          else this.taskService.getAllTask();
+        },
+        (err) => {
+          this,
+            this.dialogService.openGenericAlert(
+              DialogType.DT_ERROR,
+              'Error',
+              err
+            );
+        }
+      );
 
+    this.operation = 'New';
   }
 
   onSearch(value: string) {
@@ -168,8 +243,10 @@ export class TaskManagerViewComponent implements OnInit {
     else
       this.dataSource = new MatTableDataSource<Task>(
         this.dataSourceOriginal.filter(
-          (item) => item.name.toString().includes(value) ||
-           item.user_assigned.includes(value) ||  item.description.includes(value)
+          (item) =>
+            item.name.toString().includes(value) ||
+            item.user_assigned.includes(value) ||
+            item.description.includes(value)
         )
       );
   }

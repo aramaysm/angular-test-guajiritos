@@ -2,7 +2,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { UserRolEnum } from '../../utils/enums/userrol.enum';
 import { Credentials } from '../../models/credentials.model';
-import { Observable } from 'rxjs';
+import { catchError, map, Observable } from 'rxjs';
 import { AuthApiService } from '../api/auth-api.service';
 import { jwtDecode } from "jwt-decode";
 
@@ -26,27 +26,18 @@ export class AuthService {
   login(credentials: Credentials) {
     this.credentials = credentials;
     this.dataUser = credentials;
-    this.authAPI.loginApi(credentials).subscribe((next)=>{
-      this.decodeToken(next);
-    });
-
+    return this.authAPI.loginApi(credentials).pipe(
+      map(response => {
+        console.log("Login response",response);
+        return this.decodeToken(response.user);
+      })
+    )
   }
 
-  decodeToken(jwt: any): any {
-    const decoded:any = jwtDecode(jwt);
-    const token: any = {};
-    token.fullToken = jwt;
-    token.company = decoded.company;
-    token.fullname = decoded.fullname;
-    token.rol = decoded.rol;
-    token.company_type = decoded.company_type;
-    token.user_id = decoded.user_id;
-    token.username = decoded.username;
-    const expiredAt = new Date();
-    token.exp = expiredAt.getTime();
-    this.token = token;
-    this.saveUser(token, true);
-    return token;
+  decodeToken(user: any): any {
+    
+    this.saveUser(user, true);
+    return user;
   }
 
 
@@ -70,7 +61,7 @@ export class AuthService {
   }
 
   public loadUser() {
-    console.log("Reload token from localstorage", localStorage.getItem('token'));
+    
     if (localStorage.getItem('token') )
     {
       this.token = JSON.parse(localStorage.getItem('token')!);

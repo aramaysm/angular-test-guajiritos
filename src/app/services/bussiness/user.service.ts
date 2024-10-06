@@ -11,7 +11,9 @@ export class UserService {
   users_options: any[] = [];
   @Output() evGetAll = new EventEmitter<User[]>();
 
-  constructor(private userServiceAPI: UserApiService) {}
+  constructor(private userServiceAPI: UserApiService) {
+    this.getAllUser();
+  }
 
   getAllUser() {
     this.userServiceAPI.getAllUserAPI().subscribe((users) => {
