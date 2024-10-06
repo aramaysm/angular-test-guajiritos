@@ -58,4 +58,18 @@ export class UserService {
   deleteUser(newData: any){
     return this.userServiceAPI.deleteUserAPI(newData);
   }
+
+  getUserByRol(rol:number){
+    return this.userServiceAPI.getUserByRol(rol).subscribe((users) => {
+      this.usersList = users;
+      this.users_options = users.map((item) => {
+        return {
+          id: item.id,
+          name: item.firstname + ' ' + item.lastname,
+        };
+      });
+     
+      this.evGetAll.emit(users);
+    });;
+  }
 }

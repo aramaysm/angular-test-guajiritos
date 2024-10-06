@@ -3,6 +3,8 @@ import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { StatusTaskEnum } from '../../../../utils/enums/status_task.enum';
 import { StatusUserEnum } from '../../../../utils/enums/status_user.enum';
+import { AuthService } from '../../../../services/bussiness/auth.service';
+import { UserRolEnum } from '../../../../utils/enums/userrol.enum';
 
 @Component({
   selector: 'app-add-user-dialog',
@@ -37,7 +39,6 @@ export class AddUserDialogComponent implements OnInit {
    
   });
   
-  
   status: string = StatusUserEnum.ACTIVATED;
   status_options = [
     {
@@ -54,6 +55,7 @@ export class AddUserDialogComponent implements OnInit {
   constructor(
     private dialogRef: MatDialogRef<any>,
     @Inject(MAT_DIALOG_DATA) public data: any,
+    private authService: AuthService
   ) {
     
   }
@@ -79,6 +81,8 @@ export class AddUserDialogComponent implements OnInit {
   
   
   ngOnInit(): void {
+    this.authService.loadUser();
+
     if (this.data.params !== undefined) {
       this.userForm.patchValue({
         firstname: this.data.params.firstname,
@@ -101,8 +105,7 @@ export class AddUserDialogComponent implements OnInit {
   }
 
   onSave(){
-    if(!this.data.params){
-      
+    if(!this.data.params){      
       if(this.password?.value === ""){
         alert("Error, la contraseña es requerida");
       }
@@ -119,7 +122,8 @@ export class AddUserDialogComponent implements OnInit {
           password: this.userForm.value.password,
           age: this.userForm.value.age,
           status: this.status,
-          
+          rol: this.data ?  this.data.params?.rol :
+           (this.authService.token.rol === UserRolEnum.ADMIN) ? 2 : 1
         }
         this.dialogRef.close(data);
       }

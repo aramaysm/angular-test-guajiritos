@@ -1,4 +1,4 @@
-import { HttpHeaders, HttpClient } from '@angular/common/http';
+import { HttpHeaders, HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { ProcessHTTPMSgService } from '../bussiness/ProcessHTTPMSg.service';
 import { Observable, catchError } from 'rxjs';
@@ -31,7 +31,6 @@ export class UserApiService {
 
   createUserAPI(user: User): Observable<User> {
     
-    
     return this.http
       .post<User>(serverURL + this.path, user)
       .pipe(catchError(this.processHttpMsgService.handleError));
@@ -47,6 +46,14 @@ export class UserApiService {
   deleteUserAPI(user: User) {    
     return this.http
       .delete<User>(serverURL + this.path+'/'+user.id)
+      .pipe(catchError(this.processHttpMsgService.handleError));
+  }
+
+  getUserByRol(rol:number){
+    let params = new HttpParams();
+    params = params.append('rol', rol + '');
+    return this.http
+      .get<User[]>(serverURL + this.path,{params})
       .pipe(catchError(this.processHttpMsgService.handleError));
   }
 

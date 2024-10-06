@@ -44,9 +44,8 @@ export class SidebarComponent implements OnInit {
     this.router.navigateByUrl(url, { replaceUrl: true });
   }
 
-  get isAdministrator() {
-    const adminRol = UserRolEnum.ADMIN;
+  get isAdministrator() {  
 
-    return adminRol === this.authService?.token?.rol;
+    return  this.authService?.token?.rol === UserRolEnum.ADMIN || this.authService?.token?.rol === UserRolEnum.SUPERADMIN;
   }
 }

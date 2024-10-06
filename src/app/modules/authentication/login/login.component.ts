@@ -45,7 +45,7 @@ export class LoginComponent {
     }).subscribe(
       (next)=>{
      
-      if(next.rol === UserRolEnum.ADMIN)
+      if(next.rol === UserRolEnum.ADMIN || next.rol === UserRolEnum.SUPERADMIN )
       this.router.navigateByUrl('/user', { replaceUrl: true });
     else
     this.router.navigateByUrl('/task', { replaceUrl: true });

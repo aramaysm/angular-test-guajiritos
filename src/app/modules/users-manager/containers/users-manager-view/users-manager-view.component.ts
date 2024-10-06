@@ -15,6 +15,8 @@ import {
   DialogType,
   DialogConfirm,
 } from '../../../../utils/enums/dialog-type.enum';
+import { AuthService } from '../../../../services/bussiness/auth.service';
+import { UserRolEnum } from '../../../../utils/enums/userrol.enum';
 
 @Component({
   selector: 'app-users-manager-view',
@@ -98,7 +100,8 @@ export class UsersManagerViewComponent {
   constructor(
     private userService: UserService,
     private dialog: MatDialog,
-    private dialogService: DialogService
+    private dialogService: DialogService,
+    private authService: AuthService
   ) {
     this.subscription.push(
       this.userService.evGetAll.subscribe((data) => this.onGetAllUsers(data))
@@ -106,7 +109,12 @@ export class UsersManagerViewComponent {
   }
 
   ngOnInit(): void {
-    this.userService.getAllUser();
+    this.authService.loadUser();
+
+      if ( this.authService.token?.rol === UserRolEnum.ADMIN)
+        this.userService.getUserByRol(UserRolEnum.USER);
+      else this.userService.getUserByRol(UserRolEnum.ADMIN);  
+   
   }
 
   onChangeSelectStatus(status: StatusUserEnum | 'All') {
@@ -140,7 +148,9 @@ export class UsersManagerViewComponent {
             if (next?.confirm === true) {
               this.userService.deleteUser(rowSelected).subscribe(
                 () => {
-                  this.userService.getAllUser();
+                  if ( this.authService.token?.rol === UserRolEnum.ADMIN)
+                    this.userService.getUserByRol(UserRolEnum.USER);
+                  else this.userService.getUserByRol(UserRolEnum.ADMIN); 
                 },
                 (err) => {
                   this.dialogService.openGenericAlert(
@@ -166,7 +176,9 @@ export class UsersManagerViewComponent {
     if (this.operation === 'New')
       this.userService.createUser(newUser).subscribe(
         (next) => {
-          this.userService.getAllUser();
+          if ( this.authService.token?.rol === UserRolEnum.ADMIN)
+            this.userService.getUserByRol(UserRolEnum.USER);
+          else this.userService.getUserByRol(UserRolEnum.ADMIN); 
         },
         (err) => {
           this,
@@ -180,7 +192,9 @@ export class UsersManagerViewComponent {
     else
       this.userService.updateUser(newUser).subscribe(
         (next) => {
-          this.userService.getAllUser();
+          if ( this.authService.token?.rol === UserRolEnum.ADMIN)
+            this.userService.getUserByRol(UserRolEnum.USER);
+          else this.userService.getUserByRol(UserRolEnum.ADMIN); 
         },
         (err) => {
           this,
