@@ -31,6 +31,12 @@ En la implementación de este test, se han adaptado los roles de usuarios para a
 No tienen permiso para crear, ni asignar tareas a otros usuarios.
 
 ### Los usuarios creados puede verificarlos en el archivo db.json. Puede tomar como ejemplo, para probar, los siguientes:
-Super admin: email:lomb@fdgf.v  password: lomb
-Admin: email: aramaysm@gmail.com   password: aram
-User: email: pepe@ee.mk    password: pepe
+* Superadmin:
+
+   email:lomb@fdgf.v  password: lomb
+* Admin:
+
+   email: aramaysm@gmail.com   password: aram
+* User:
+
+  email: pepe@ee.mk    password: pepe
